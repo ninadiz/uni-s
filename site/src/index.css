@@ -114,3 +114,12 @@ body {
   background: var(--color-white);
   color: var(--color-black);
 }
+
+* {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+*::-webkit-scrollbar {
+  display: none;
+}
