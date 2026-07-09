@@ -1,111 +1,116 @@
+@import "tailwindcss";
+@import "@fontsource-variable/inter-tight";
+
+@theme {
+  --font-sans: "Inter Tight Variable", "Helvetica", "Arial", sans-serif;
+  --font-serif: "Inter Tight Variable", "Helvetica", "Arial", sans-serif;
+
+  --color-black: #000;
+  --color-white: #fff;
+  --color-menu: #c9cac9;
+  --color-notification: #ffff3c;
+  --color-pigeon: #76756f;
+  --color-submenu: #e3e3e3;
+  --color-shop: #beffbd;
+  --color-menthol: #b8fbff;
+
+  --text-smXs: 1.1rem;
+  --text-smXs--line-height: 130%;
+  --text-smXs--letter-spacing: 0.02em;
+  --text-smXs--font-weight: 400;
+
+  --text-xs: 1.2rem;
+  --text-xs--line-height: 130%;
+  --text-xs--letter-spacing: 0.02em;
+  --text-xs--font-weight: 400;
+
+  --text-smS: 1.4rem;
+  --text-smS--line-height: 130%;
+  --text-smS--letter-spacing: 0.3px;
+  --text-smS--font-weight: 400;
+
+  --text-s: 1.5rem;
+  --text-s--line-height: 130%;
+  --text-s--letter-spacing: 0.3px;
+  --text-s--font-weight: 400;
+
+  --text-body: 1.5rem;
+  --text-body--line-height: 139%;
+  --text-body--letter-spacing: 0.3px;
+  --text-body--font-weight: 400;
+
+  --text-smM: 1.7rem;
+  --text-smM--line-height: 115%;
+  --text-smM--letter-spacing: 0.21px;
+  --text-smM--font-weight: 400;
+
+  --text-m: 2.1rem;
+  --text-m--line-height: 115%;
+  --text-m--letter-spacing: 0.21px;
+  --text-m--font-weight: 400;
+
+  --text-smX: 1.7rem;
+  --text-smX--line-height: 115%;
+  --text-smX--letter-spacing: 0.01em;
+  --text-smX--font-weight: 400;
+
+  --text-x: 1.9rem;
+  --text-x--line-height: 115%;
+  --text-x--letter-spacing: 0.01em;
+  --text-x--font-weight: 400;
+
+  --text-smL: 2.8rem;
+  --text-smL--line-height: 110%;
+  --text-smL--letter-spacing: -0.28px;
+  --text-smL--font-weight: 400;
+
+  --text-l: 2.8rem;
+  --text-l--line-height: 110%;
+  --text-l--letter-spacing: -0.28px;
+  --text-l--font-weight: 400;
+
+  --text-smSaansL: 2.2rem;
+  --text-smSaansL--line-height: 115%;
+  --text-smSaansL--letter-spacing: 0.1px;
+  --text-smSaansL--font-weight: 400;
+
+  --text-smXl: 2.9rem;
+  --text-smXl--line-height: 110%;
+  --text-smXl--letter-spacing: -0.01em;
+  --text-smXl--font-weight: 400;
+
+  --text-xl: 4.8rem;
+  --text-xl--line-height: 90%;
+  --text-xl--letter-spacing: -0.96px;
+  --text-xl--font-weight: 400;
+
+  --radius-none: 0;
+  --radius-xs: 0.1rem;
+  --radius-sm: 0.2rem;
+  --radius-base: 0.8rem;
+  --radius-md: 1rem;
+  --radius-lg: 2rem;
+  --radius-xl: 3rem;
+  --radius-2xl: 5rem;
+  --radius-full: 50%;
+
+  --tracking-tight: -0.025em;
+  --tracking-normal: 0em;
+  --tracking-wide: 0.01em;
+  --tracking-wider: 0.02em;
+
+  --spacing: 1px;
+}
+
 :root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
-
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
-
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
-  color: var(--text);
-  background: var(--bg);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
+  color-scheme: light;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
-
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
-}
-
-#root {
-  width: 1126px;
-  max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
+html {
+  font-size: 10px;
 }
 
 body {
-  margin: 0;
-}
-
-h1,
-h2 {
-  font-family: var(--heading);
-  font-weight: 500;
-  color: var(--text-h);
-}
-
-h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
-  }
-}
-h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
-  }
-}
-p {
-  margin: 0;
-}
-
-code,
-.counter {
-  font-family: var(--mono);
-  display: inline-flex;
-  border-radius: 4px;
-  color: var(--text-h);
-}
-
-code {
-  font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--code-bg);
+  background: var(--color-white);
+  color: var(--color-black);
 }
