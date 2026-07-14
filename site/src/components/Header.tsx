@@ -21,10 +21,10 @@ function Header() {
       aria-disabled={isActive('/') || undefined}
       tabIndex={isActive('/') ? -1 : undefined}
     >
-    Unis
+    Uni-S
     </Link>
     </li>
-    <li className={`hidden md:flex${isActive('/services') ? ' current-parent-item' : ''}`}>
+    <li className={`hidden md:flex ${isActive('/services') ? 'current-parent-item' : ''}`}>
     <Link
       to="/services"
       data-discover="true"
@@ -34,7 +34,7 @@ function Header() {
       tabIndex={isActive('/services') ? -1 : undefined}
     >Услуги</Link>
     </li>
-    <li className={`hidden md:flex${isActive('/objects') ? ' current-parent-item' : ''}`}>
+    <li className={`hidden md:flex ${isActive('/objects') ? 'current-parent-item' : ''}`}>
     <Link
       to="/objects"
       data-discover="true"
@@ -44,7 +44,7 @@ function Header() {
       tabIndex={isActive('/objects') ? -1 : undefined}
     >Объекты</Link>
     </li>
-    <li className={`hidden md:flex${isActive('/prices') ? ' current-parent-item' : ''}`}>
+    <li className={`hidden md:flex ${isActive('/prices') ? 'current-parent-item' : ''}`}>
     <Link
       to="/prices"
       data-discover="true"
@@ -54,7 +54,7 @@ function Header() {
       tabIndex={isActive('/prices') ? -1 : undefined}
     >Цены</Link>
     </li>
-    <li className={`hidden md:flex${isActive('/ui-kit') ? ' current-parent-item' : ''}`}>
+    <li className={`hidden md:flex ${isActive('/ui-kit') ? 'current-parent-item' : ''}`}>
     <Link
       to="/ui-kit"
       data-discover="true"
