@@ -123,3 +123,78 @@ body {
 *::-webkit-scrollbar {
   display: none;
 }
+
+/* Custom cursor */
+@media (pointer: fine) {
+  * {
+    cursor: none !important;
+  }
+
+  .cursor-dot,
+  .cursor-ring {
+    position: fixed;
+    left: -100px;
+    top: -100px;
+    border-radius: var(--radius-full);
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    will-change: left, top;
+  }
+
+  .cursor-dot.is-visible,
+  .cursor-ring.is-visible {
+    opacity: 1;
+  }
+
+  .cursor-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--color-black);
+    z-index: 9999;
+    transition: background 0.2s, opacity 0.2s;
+  }
+
+  .cursor-ring {
+    width: 32px;
+    height: 32px;
+    border: 1px solid var(--color-black);
+    z-index: 9998;
+    transition:
+      width 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+      height 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+      border-color 0.25s,
+      background 0.25s,
+      opacity 0.2s,
+      transform 0.15s ease-out;
+  }
+
+  .cursor-ring.is-hovered {
+    width: 64px;
+    height: 64px;
+  }
+
+  .cursor-ring.is-clicking {
+    transform: translate(-50%, -50%) scale(0.5);
+  }
+
+  .cursor-dot.is-hovered.is-dark {
+    background: var(--color-white);
+  }
+
+  .cursor-ring.is-hovered.is-dark {
+    border-color: var(--color-white);
+  }
+
+  .cursor-dot.is-text {
+    opacity: 0;
+  }
+
+  .cursor-ring.is-text {
+    width: 3px;
+    height: 28px;
+    border-radius: var(--radius-xs);
+    border-width: 0;
+    background: var(--color-black);
+  }
+}
