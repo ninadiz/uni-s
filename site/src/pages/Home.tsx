@@ -14,6 +14,7 @@ const services = [
     title: 'Аренда стенорезной машины с оператором',
     description: 'Опытный оператор быстро настроит оборудование и выполнит задачи на вашем объекте.',
     illustration: <RentalOperatorIllustration />,
+    featured: true,
   },
   {
     title: 'Алмазное бурение отверстий',
@@ -26,6 +27,9 @@ const services = [
     illustration: <WireSawIllustration />,
   },
 ]
+
+const featuredService = services.find((service) => service.featured)!
+const otherServices = services.filter((service) => !service.featured)
 
 const objectColors = ['#e3e3e3', '#e3e3e3', '#e3e3e3', '#e3e3e3']
 
@@ -68,14 +72,25 @@ function Home() {
         <ClientLogos />
       </section>
 
-      <section id="services" className="relative mt-60 md:mt-100 px-10 md:px-20 scroll-mt-header">
-        <hr className="p-0 m-0 b-0 h-0 border-t border-black absolute left-10 right-10 md:left-20 md:right-20 transition-all origin-center" />
-        <div className="pt-15">
-          <h2 className="text-3xl-normal tracking-wide mb-20 sm:mb-30 turn-off-feature transition-all">
-            Услуги
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-15">
-            {services.map((service) => (
+      <section id="services" className="mt-60 md:mt-100 px-10 md:px-20 scroll-mt-header">
+        <div className="pt-15 grid grid-cols-1 md:grid-cols-2 gap-15">
+          <div className="flex flex-col">
+            <h2 className="text-3xl-normal tracking-wide mb-20 sm:mb-30 turn-off-feature transition-all">
+              Услуги
+            </h2>
+            <p className="text-xl-wide mb-20 sm:mb-30">
+              Полный комплекс алмазных работ — от резки и бурения до аренды оборудования с оператором.
+            </p>
+            <ServiceCard
+              title={featuredService.title}
+              description={featuredService.description}
+              illustration={featuredService.illustration}
+              featured
+              className="flex-1"
+            />
+          </div>
+          <div className="flex flex-col gap-15">
+            {otherServices.map((service) => (
               <ServiceCard
                 key={service.title}
                 title={service.title}
