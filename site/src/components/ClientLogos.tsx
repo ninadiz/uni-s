@@ -10,7 +10,7 @@ function ClientLogos({ className = '' }: ClientLogosProps) {
       {clients.map((client) => (
         <div
           key={client}
-          className="flex items-center justify-center h-60 md:h-80 bg-submenu rounded-base text-smSaansL sm:text-l font-serif tracking-wide text-pigeon grayscale"
+          className="flex items-center justify-center h-60 md:h-80 bg-submenu rounded-base text-2xl-7-wide sm:text-3xl-normal tracking-wide text-pigeon grayscale"
         >
           {client}
         </div>
