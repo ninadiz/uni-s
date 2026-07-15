@@ -14,90 +14,74 @@
   --color-shop: #beffbd;
   --color-menthol: #b8fbff;
 
-  --text-smXs: 1.1rem;
-  --text-smXs--line-height: 130%;
-  --text-smXs--letter-spacing: 0.02em;
-  --text-smXs--font-weight: 400;
+  /* text-{size}-{tracking}: size follows Tailwind's scale, leading is a fixed
+     leading-N value from Tailwind's scale (N * 0.25rem), tracking maps to --tracking-*. */
+  --text-xs-wide: 0.75rem;
+  --text-xs-wide--line-height: 1rem; /* leading-4 */
+  --text-xs-wide--letter-spacing: var(--tracking-wide);
+  --text-xs-wide--font-weight: 400;
 
-  --text-xs: 1.2rem;
-  --text-xs--line-height: 130%;
-  --text-xs--letter-spacing: 0.02em;
-  --text-xs--font-weight: 400;
+  --text-sm-wide: 0.875rem;
+  --text-sm-wide--line-height: 1.25rem; /* leading-5 */
+  --text-sm-wide--letter-spacing: var(--tracking-wide);
+  --text-sm-wide--font-weight: 400;
 
-  --text-smS: 1.4rem;
-  --text-smS--line-height: 130%;
-  --text-smS--letter-spacing: 0.3px;
-  --text-smS--font-weight: 400;
+  --text-base-wide: 1rem;
+  --text-base-wide--line-height: 1.5rem; /* leading-6 */
+  --text-base-wide--letter-spacing: var(--tracking-wide);
+  --text-base-wide--font-weight: 400;
 
-  --text-s: 1.5rem;
-  --text-s--line-height: 130%;
-  --text-s--letter-spacing: 0.3px;
-  --text-s--font-weight: 400;
+  --text-lg-wide: 1.125rem;
+  --text-lg-wide--line-height: 1.75rem; /* leading-7 */
+  --text-lg-wide--letter-spacing: var(--tracking-wide);
+  --text-lg-wide--font-weight: 400;
 
-  --text-body: 1.5rem;
-  --text-body--line-height: 139%;
-  --text-body--letter-spacing: 0.3px;
-  --text-body--font-weight: 400;
+  --text-xl-wide: 1.25rem;
+  --text-xl-wide--line-height: 1.75rem; /* leading-7 */
+  --text-xl-wide--letter-spacing: var(--tracking-wide);
+  --text-xl-wide--font-weight: 400;
 
-  --text-smM: 1.7rem;
-  --text-smM--line-height: 115%;
-  --text-smM--letter-spacing: 0.21px;
-  --text-smM--font-weight: 400;
+  --text-2xl-normal: 1.375rem;
+  --text-2xl-normal--line-height: 2rem; /* leading-8 */
+  --text-2xl-normal--letter-spacing: var(--tracking-normal);
+  --text-2xl-normal--font-weight: 400;
 
-  --text-m: 2.1rem;
-  --text-m--line-height: 115%;
-  --text-m--letter-spacing: 0.21px;
-  --text-m--font-weight: 400;
+  --text-2xl-7-wide: 1.375rem;
+  --text-2xl-7-wide--line-height: 1.75rem; /* leading-7 */
+  --text-2xl-7-wide--letter-spacing: var(--tracking-wide);
+  --text-2xl-7-wide--font-weight: 400;
 
-  --text-smX: 1.7rem;
-  --text-smX--line-height: 115%;
-  --text-smX--letter-spacing: 0.01em;
-  --text-smX--font-weight: 400;
+  --text-3xl-normal: 1.875rem;
+  --text-3xl-normal--line-height: 2.25rem; /* leading-9 */
+  --text-3xl-normal--letter-spacing: var(--tracking-normal);
+  --text-3xl-normal--font-weight: 400;
 
-  --text-x: 1.9rem;
-  --text-x--line-height: 115%;
-  --text-x--letter-spacing: 0.01em;
-  --text-x--font-weight: 400;
+  --text-4xl-tight: 2.25rem;
+  --text-4xl-tight--line-height: 2.5rem; /* leading-10 */
+  --text-4xl-tight--letter-spacing: var(--tracking-tight);
+  --text-4xl-tight--font-weight: 400;
 
-  --text-smL: 2.8rem;
-  --text-smL--line-height: 110%;
-  --text-smL--letter-spacing: -0.28px;
-  --text-smL--font-weight: 400;
-
-  --text-l: 2.8rem;
-  --text-l--line-height: 110%;
-  --text-l--letter-spacing: -0.28px;
-  --text-l--font-weight: 400;
-
-  --text-smSaansL: 2.2rem;
-  --text-smSaansL--line-height: 115%;
-  --text-smSaansL--letter-spacing: 0.1px;
-  --text-smSaansL--font-weight: 400;
-
-  --text-smXl: 2.9rem;
-  --text-smXl--line-height: 110%;
-  --text-smXl--letter-spacing: -0.01em;
-  --text-smXl--font-weight: 400;
-
-  --text-xl: 4.8rem;
-  --text-xl--line-height: 90%;
-  --text-xl--letter-spacing: -0.96px;
-  --text-xl--font-weight: 400;
+  --text-5xl-tight: 3rem;
+  --text-5xl-tight--line-height: 1; /* Tailwind uses unitless 1 for 5xl+, no leading-N */
+  --text-5xl-tight--letter-spacing: var(--tracking-tight);
+  --text-5xl-tight--font-weight: 400;
 
   --radius-none: 0;
-  --radius-xs: 0.1rem;
-  --radius-sm: 0.2rem;
-  --radius-base: 0.8rem;
-  --radius-md: 1rem;
-  --radius-lg: 2rem;
-  --radius-xl: 3rem;
-  --radius-2xl: 5rem;
+  --radius-xs: 0.125rem;
+  --radius-sm: 0.125rem;
+  --radius-base: 0.5rem;
+  --radius-md: 0.625rem;
+  --radius-lg: 1.25rem;
+  --radius-xl: 1.875rem;
+  --radius-2xl: 3.125rem;
   --radius-full: 50%;
 
+  --tracking-tighter: -0.05em;
   --tracking-tight: -0.025em;
   --tracking-normal: 0em;
-  --tracking-wide: 0.01em;
-  --tracking-wider: 0.02em;
+  --tracking-wide: 0.025em;
+  --tracking-wider: 0.05em;
+  --tracking-widest: 0.1em;
 
   --spacing: 1px;
 }
@@ -107,7 +91,7 @@
 }
 
 html {
-  font-size: 10px;
+  font-size: 16px;
 }
 
 body {

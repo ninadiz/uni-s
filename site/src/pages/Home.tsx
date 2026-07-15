@@ -43,7 +43,7 @@ function Home() {
   return (
     <>
       <section className="bg-menu px-10 md:px-20 pb-20 flex flex-col md:flex-row md:items-end md:justify-between gap-20">
-        <h1 className="max-w-full md:max-w-[62%] w-[935px] font-serif text-smXl sm:text-[44px] sm:leading-[0.9] sm:tracking-tight">
+        <h1 className="max-w-full md:max-w-[62%] w-[935px] text-3xl-normal sm:text-4xl-tight">
           Алмазное сверление, резка проёмов и демонтаж сложных конструкций
         </h1>
         <div className="flex flex-row gap-5">
@@ -64,10 +64,14 @@ function Home() {
         </div>
       </section>
 
+      <section className="mt-60 md:mt-100 px-10 md:px-20">
+        <ClientLogos />
+      </section>
+
       <section id="services" className="relative mt-60 md:mt-100 px-10 md:px-20 scroll-mt-header">
         <hr className="p-0 m-0 b-0 h-0 border-t border-black absolute left-10 right-10 md:left-20 md:right-20 transition-all origin-center" />
         <div className="pt-15">
-          <h2 className="font-normal text-smXl tracking-wide mb-20 sm:mb-30 turn-off-feature transition-all">
+          <h2 className="text-3xl-normal tracking-wide mb-20 sm:mb-30 turn-off-feature transition-all">
             Услуги
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-15">
@@ -86,11 +90,11 @@ function Home() {
       <section id="objects" className="relative mt-60 md:mt-100 px-10 md:px-20 scroll-mt-header">
         <hr className="p-0 m-0 b-0 h-0 border-t border-black absolute left-10 right-10 md:left-20 md:right-20 transition-all origin-center" />
         <div className="pt-15 flex flex-col">
-          <h2 className="font-normal text-smXl tracking-wide mb-20 sm:mb-30 turn-off-feature transition-all">
+          <h2 className="text-3xl-normal tracking-wide mb-20 sm:mb-30 turn-off-feature transition-all">
             Реализованные объекты
           </h2>
           <div className="flex flex-col md:flex-row gap-20 items-start justify-between mb-48 sm:mb-67">
-            <p className="text-x font-serif -tracking-wide max-w-[935px]">
+            <p className="text-xl-wide max-w-[935px]">
               Мы выполнили десятки проектов по алмазному сверлению, резке проёмов и демонтажу сложных конструкций — от жилых домов до промышленных объектов.
             </p>
             <Link
@@ -100,7 +104,6 @@ function Home() {
               Все объекты
             </Link>
           </div>
-          <ClientLogos className="mb-48 sm:mb-67" />
         </div>
         <div className="grid grid-cols-6 items-start gap-x-15 gap-y-25">
           {completedObjects.map((object) => (

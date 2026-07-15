@@ -28,7 +28,7 @@ function ObjectCarouselCard({ title, span, slides }: ObjectCarouselCardProps) {
                 className="absolute inset-0 flex items-center justify-center"
                 style={{ backgroundColor: slides[index].color }}
               >
-                <span className="whitespace-nowrap flex items-center justify-center w-full h-full overflow-hidden text-smXs text-black uppercase tracking-wider">
+                <span className="whitespace-nowrap flex items-center justify-center w-full h-full overflow-hidden text-xs-wide text-black uppercase tracking-wider">
                   {slides[index].label}
                 </span>
               </div>
@@ -37,8 +37,8 @@ function ObjectCarouselCard({ title, span, slides }: ObjectCarouselCardProps) {
         </div>
       </div>
       <div className="flex justify-between md:justify-start items-center gap-15">
-        <h5 className="text-smSaansL sm:text-l font-regular">{title}</h5>
-        <div className="embla__controls tabular-nums h-34 md:h-37 rounded-base bg-black text-white flex items-center text-s gap-5 relative px-32 md:px-10 transition-all md:group-hover:px-32">
+        <h4 className="text-2xl-7-wide sm:text-3xl-normal">{title}</h4>
+        <div className="embla__controls tabular-nums h-34 md:h-37 rounded-base bg-black text-white flex items-center text-base-wide gap-5 relative px-32 md:px-10 transition-all md:group-hover:px-32">
           <button
             type="button"
             onClick={prev}
