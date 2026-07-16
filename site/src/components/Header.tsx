@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 
 const submenuLinkClasses = "pl-10 md:pl-20 pr-10 md:pr-20 [&_a]:flex [&_a]:items-center [&_a]:justify-center [&_a]:no-underline [&_a]:whitespace-nowrap [&_a]:border [&_a]:border-currentColor [&_a]:rounded-md [&_a:hover]:bg-notification [&_a:hover]:border-notification [&_a]:pb-1 [&_a]:h-34 [&_a]:px-12 [&_a]:font-light [&_a]:transition-(--menuItem-properties) [&_a]:duration-300 [&_a]:ease-in-out [&_li.current-item>a]:bg-black [&_li.current-item>a]:text-white [&_li.current-item>a]:border-black"
@@ -6,12 +7,28 @@ function Header() {
   const { pathname } = useLocation()
   const isActive = (to: string) => pathname === to
   const isHomeSection = ['/', '/hilti-repair', '/hilti-supply'].includes(pathname)
+  const headerRef = useRef<HTMLElement>(null)
+
+  useEffect(() => {
+    const header = headerRef.current
+    if (!header) return
+    const setHeight = () => {
+      document.documentElement.style.setProperty('--header-height', `${header.offsetHeight}px`)
+    }
+    setHeight()
+    const observer = new ResizeObserver(setHeight)
+    observer.observe(header)
+    return () => observer.disconnect()
+  }, [])
 
   return (
-    <header className="w-full z-40 sticky top-0 left-0 bg-menu pt-15 md:pt-13 pb-40 overflow-auto md:overflow-hidden transition-all max-h-[100vh]">
+    <header
+      ref={headerRef}
+      className="w-full z-40 sticky top-0 left-0 bg-menu pt-15 md:pt-13 pb-24 overflow-auto md:overflow-hidden transition-all max-h-[100vh]"
+    >
     <div className="inner relative px-10 md:px-20 mx-auto w-full max-w-[5120px]">
     <nav className="flex justify-between items-start turn-off-feature-soft">
-    <ul className="headerNavigation flex flex-wrap sm:flex-nowrap gap-5 grow [&>li>a]:transition-all [&>li>a]:h-34 lg:[&>li>a]:h-59 [&>li>a]:px-12 lg:[&>li>a]:px-20 [&>li>a]:text-base-wide lg:[&>li>a]:text-3xl-normal [&>li>a]:font-light [&>li>a:hover]:rounded-2xl [&_a]:flex [&_a]:items-center [&_a]:justify-center [&_a]:no-underline [&_a]:whitespace-nowrap [&_a]:border [&_a]:border-currentColor [&_a]:rounded-md [&_a:hover]:bg-notification [&_a:hover]:border-notification [&_a]:pb-1 [&_a]:transition-(--menuItem-properties) [&_a]:duration-300 [&_a]:ease-in-out [&_li.current-parent-item>a]:bg-black [&_li.current-parent-item>a]:text-white [&_li.current-parent-item>a]:rounded-2xl [&_li.current-parent-item>a]:border-black pb-40 lg:pb-45">
+    <ul className="headerNavigation flex flex-wrap sm:flex-nowrap gap-5 grow [&>li>a]:transition-all [&>li>a]:h-34 lg:[&>li>a]:h-59 [&>li>a]:px-12 lg:[&>li>a]:px-20 [&>li>a]:text-base-wide lg:[&>li>a]:text-3xl [&>li>a]:font-light [&>li>a:hover]:rounded-2xl [&_a]:flex [&_a]:items-center [&_a]:justify-center [&_a]:no-underline [&_a]:whitespace-nowrap [&_a]:border [&_a]:border-currentColor [&_a]:rounded-md [&_a:hover]:bg-notification [&_a:hover]:border-notification [&_a]:pb-1 [&_a]:transition-(--menuItem-properties) [&_a]:duration-300 [&_a]:ease-in-out [&_li.current-parent-item>a]:bg-black [&_li.current-parent-item>a]:text-white [&_li.current-parent-item>a]:rounded-2xl [&_li.current-parent-item>a]:border-black pb-40 lg:pb-45">
     <li className={isHomeSection ? 'current-parent-item' : ''}>
     <Link
       to="/"

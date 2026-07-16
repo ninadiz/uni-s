@@ -58,3 +58,37 @@ export function WireSawIllustration() {
     </IllustrationFrame>
   )
 }
+
+export function LensIllustration() {
+  return (
+    <svg
+      viewBox="0 0 222 200"
+      xmlns="http://www.w3.org/2000/svg"
+      className="w-full h-full"
+      fill="none"
+    >
+      <g clipPath="url(#lens-illustration-clip)">
+        <path d="M111 0V200" stroke="black" vectorEffect="non-scaling-stroke" />
+        <path
+          d="M132 157C163.48 157 189 131.48 189 100C189 68.5198 163.48 43 132 43C100.52 43 75 68.5198 75 100C75 131.48 100.52 157 132 157Z"
+          stroke="black"
+          vectorEffect="non-scaling-stroke"
+        />
+        <path
+          d="M90 157C121.48 157 147 131.48 147 100C147 68.5198 121.48 43 90 43C58.5198 43 33 68.5198 33 100C33 131.48 58.5198 157 90 157Z"
+          stroke="black"
+          vectorEffect="non-scaling-stroke"
+        />
+        <path d="M1 58V14H45" stroke="black" vectorEffect="non-scaling-stroke" />
+        <path d="M1 140V184H45" stroke="black" vectorEffect="non-scaling-stroke" />
+        <path d="M221 58V14H177" stroke="black" vectorEffect="non-scaling-stroke" />
+        <path d="M221 140V184H177" stroke="black" vectorEffect="non-scaling-stroke" />
+      </g>
+      <defs>
+        <clipPath id="lens-illustration-clip">
+          <rect width="222" height="200" fill="white" />
+        </clipPath>
+      </defs>
+    </svg>
+  )
+}
