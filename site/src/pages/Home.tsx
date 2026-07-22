@@ -3,6 +3,7 @@ import ClientLogos from '../components/ClientLogos'
 import ObjectCarouselCard from '../components/ObjectCarouselCard'
 import ServiceCard from '../components/ServiceCard'
 import { LensIllustration } from '../components/ServiceIllustrations'
+import { getFeaturedObjects, toObjectCard } from '../lib/objects'
 
 const services = [
   {
@@ -30,17 +31,7 @@ const servicesCta = {
   description: 'Закажите услугу аренды стенорезной машины с оператором. Оператор быстро настроит оборудование и выполнит задачи на вашем объекте.',
 }
 
-const objectColors = ['#e3e3e3', '#e3e3e3', '#e3e3e3', '#e3e3e3']
-
-const completedObjects = [
-  { title: 'Жилой комплекс «Северный»', span: 'md:col-span-4' },
-  { title: 'Автомойка', span: 'md:col-span-2' },
-  { title: 'Торговый центр «Плаза»', span: 'md:col-span-3' },
-  { title: 'Складской комплекс', span: 'md:col-span-3' },
-].map((object, index) => ({
-  ...object,
-  slides: [1, 2, 3].map((n) => ({ label: `Фото ${n}`, color: objectColors[index] })),
-}))
+const featuredObjects = getFeaturedObjects()
 
 function Home() {
   return (
@@ -77,7 +68,7 @@ function Home() {
       <section id="services" className="mt-60 md:mt-100 px-10 md:px-20 lg:px-40 scroll-mt-header">
         <div className="pt-15 grid grid-cols-1 md:grid-cols-2 gap-15 md:gap-40 items-start">
           <div className="flex flex-col gap-20 sm:gap-32">
-            <h2 className="text-4xl-tight sm:text-5xl turn-off-feature transition-all">
+            <h2 className="text-4xl sm:text-5xl turn-off-feature transition-all">
               Услуги
             </h2>
             <p className="text-xl-wide">
@@ -111,7 +102,7 @@ function Home() {
       <section id="objects" className="relative mt-60 md:mt-100 px-10 md:px-20 lg:px-40 scroll-mt-header">
         <hr className="p-0 m-0 b-0 h-0 border-t border-black absolute left-10 right-10 md:left-20 md:right-20 lg:left-40 lg:right-40 transition-all origin-center" />
         <div className="pt-15 flex flex-col">
-          <h2 className="text-4xl-tight sm:text-5xl mb-20 sm:mb-30 turn-off-feature transition-all">
+          <h2 className="text-4xl sm:text-5xl mb-20 sm:mb-30 turn-off-feature transition-all">
             Реализованные объекты
           </h2>
           <div className="flex flex-col md:flex-row gap-20 items-start justify-between mb-48 sm:mb-67">
@@ -127,9 +118,10 @@ function Home() {
           </div>
         </div>
         <div className="grid grid-cols-6 items-start gap-x-15 gap-y-25">
-          {completedObjects.map((object) => (
-            <ObjectCarouselCard key={object.title} title={object.title} span={object.span} slides={object.slides} />
-          ))}
+          {featuredObjects.map((object) => {
+            const { title, slides } = toObjectCard(object)
+            return <ObjectCarouselCard key={object.slug} title={title} span="md:col-span-2" slides={slides} />
+          })}
         </div>
       </section>
     </>

@@ -7,7 +7,7 @@ const textStyles = [
   { name: 'text-2xl', size: '1.375rem', lineHeight: 'leading-8: 2rem (32px)', tracking: 'normal (0em)' },
   { name: 'text-2xl-7-wide', size: '1.375rem', lineHeight: 'leading-7: 1.75rem (28px)', tracking: 'wide (0.025em)' },
   { name: 'text-3xl', size: '1.875rem', lineHeight: 'leading-9: 2.25rem (36px)', tracking: 'normal (0em)' },
-  { name: 'text-4xl-tight', size: '2.25rem', lineHeight: 'leading-10: 2.5rem (40px)', tracking: 'tight (-0.025em)' },
+  { name: 'text-4xl', size: '2.25rem', lineHeight: 'leading-10: 2.5rem (40px)', tracking: 'normal (0em)' },
   { name: 'text-5xl', size: '3rem', lineHeight: 'leading-none: 1 (48px)', tracking: 'normal (0em)' },
 ]
 
@@ -18,7 +18,19 @@ const textStyles = [
 // Отсутствие ключа у брейкпоинта = нет своего класса, значение наследуется с предыдущей колонки.
 const SAMPLE_TEXT = 'Алмазное сверление, резка проёмов и демонтаж сложных конструкций'
 
-const usageAudit = [
+type BreakpointKey = 'default' | 'sm' | 'lg'
+
+type BreakpointStyle = { classes: string; render: string }
+
+type UsageAuditRow = {
+  group: string
+  element: string
+  sampleText?: string
+  bp: Partial<Record<BreakpointKey, BreakpointStyle>>
+  note?: string
+}
+
+const usageAudit: UsageAuditRow[] = [
   {
     group: 'Header',
     element: 'Логотип «Uni-S» (ссылка в шапке)',
@@ -51,7 +63,7 @@ const usageAudit = [
     group: 'H2',
     element: '«Услуги», «Реализованные объекты»',
     bp: {
-      default: { classes: 'text-4xl-tight', render: 'text-4xl-tight' },
+      default: { classes: 'text-4xl', render: 'text-4xl' },
       sm: { classes: 'sm:text-5xl', render: 'text-5xl' },
     },
   },
@@ -101,7 +113,7 @@ const usageAudit = [
   },
 ]
 
-const breakpointColumns = [
+const breakpointColumns: { key: BreakpointKey; label: string; hint: string }[] = [
   { key: 'default', label: 'Default', hint: '0px' },
   { key: 'sm', label: 'sm', hint: '>640px' },
   { key: 'lg', label: 'lg', hint: '>1024px' },

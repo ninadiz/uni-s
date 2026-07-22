@@ -1,19 +1,18 @@
 import { useState } from 'react'
 
-export type ObjectSlide = {
-  label: string
-  color: string
-}
+export type ObjectSlide = { label: string; color: string } | { src: string; alt: string }
 
 type ObjectCarouselCardProps = {
   title: string
   span: string
   slides: ObjectSlide[]
+  meta?: string
 }
 
-function ObjectCarouselCard({ title, span, slides }: ObjectCarouselCardProps) {
+function ObjectCarouselCard({ title, span, slides, meta }: ObjectCarouselCardProps) {
   const [index, setIndex] = useState(0)
   const total = slides.length
+  const slide = slides[index]
 
   const prev = () => setIndex((current) => (current - 1 + total) % total)
   const next = () => setIndex((current) => (current + 1) % total)
@@ -24,20 +23,27 @@ function ObjectCarouselCard({ title, span, slides }: ObjectCarouselCardProps) {
         <div className="embla relative">
           <div className="embla__container">
             <div className="embla__slide w-full h-0 pb-[62.5%] relative overflow-hidden transition-all">
-              <div
-                className="absolute inset-0 flex items-center justify-center"
-                style={{ backgroundColor: slides[index].color }}
-              >
-                <span className="whitespace-nowrap flex items-center justify-center w-full h-full overflow-hidden text-xs-wide text-black uppercase tracking-wider">
-                  {slides[index].label}
-                </span>
-              </div>
+              {'src' in slide ? (
+                <img src={slide.src} alt={slide.alt} className="absolute inset-0 w-full h-full object-cover" />
+              ) : (
+                <div
+                  className="absolute inset-0 flex items-center justify-center"
+                  style={{ backgroundColor: slide.color }}
+                >
+                  <span className="whitespace-nowrap flex items-center justify-center w-full h-full overflow-hidden text-xs-wide text-black uppercase tracking-wider">
+                    {slide.label}
+                  </span>
+                </div>
+              )}
             </div>
           </div>
         </div>
       </div>
       <div className="flex justify-between md:justify-start items-center gap-15">
-        <h4 className="text-2xl-7-wide sm:text-3xl">{title}</h4>
+        <div>
+          <h4 className="text-2xl-7-wide sm:text-3xl">{title}</h4>
+          {meta && <div className="text-xs-wide text-pigeon mt-4">{meta}</div>}
+        </div>
         <div className="embla__controls tabular-nums h-34 md:h-37 rounded-base bg-black text-white flex items-center text-base-wide gap-5 relative px-32 md:px-10 transition-all md:group-hover:px-32">
           <button
             type="button"

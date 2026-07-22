@@ -57,11 +57,6 @@
   --text-3xl--letter-spacing: var(--tracking-normal);
   --text-3xl--font-weight: 400;
 
-  --text-4xl-tight: 2.25rem;
-  --text-4xl-tight--line-height: 2.5rem; /* leading-10 */
-  --text-4xl-tight--letter-spacing: var(--tracking-tight);
-  --text-4xl-tight--font-weight: 400;
-
   --text-5xl: 3rem;
   --text-5xl--line-height: 1; /* Tailwind uses unitless 1 for 5xl+, no leading-N */
   --text-5xl--letter-spacing: var(--tracking-normal);
