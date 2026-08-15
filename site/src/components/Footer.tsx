@@ -4,7 +4,6 @@ const siteLinks = [
   { label: 'Услуги', to: '/services' },
   { label: 'Объекты', to: '/objects' },
   { label: 'Цены', to: '/prices' },
-  { label: 'UI-kit', to: '/ui-kit' },
 ]
 
 function Footer() {

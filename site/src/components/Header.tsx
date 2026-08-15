@@ -71,16 +71,6 @@ function Header() {
       tabIndex={isActive('/prices') ? -1 : undefined}
     >Цены</Link>
     </li>
-    <li className={`hidden md:flex ${isActive('/ui-kit') ? 'current-parent-item' : ''}`}>
-    <Link
-      to="/ui-kit"
-      data-discover="true"
-      className={isActive('/ui-kit') ? 'pointer-events-none' : undefined}
-      aria-current={isActive('/ui-kit') ? 'page' : undefined}
-      aria-disabled={isActive('/ui-kit') || undefined}
-      tabIndex={isActive('/ui-kit') ? -1 : undefined}
-    >UI-kit</Link>
-    </li>
     </ul>
     <div className="headerToolbar flex items-center gap-12 h-34">
     <a href="tel:+79650808808" className="flex items-center gap-5 border no-underline cursor-pointer rounded-md bg-shop border-shop text-black hover:bg-notification hover:border-notification px-12 py-4 min-h-34">Позвонить директору</a>
@@ -108,8 +98,6 @@ function Header() {
     <ul className={`${isActive('/objects') ? 'flex' : 'hidden'} flex-nowrap items-center gap-5 w-full sm:w-auto overflow-x-auto ${submenuLinkClasses}`}>
     </ul>
     <ul className={`${isActive('/prices') ? 'flex' : 'hidden'} flex-nowrap items-center gap-5 w-full sm:w-auto overflow-x-auto ${submenuLinkClasses}`}>
-    </ul>
-    <ul className={`${isActive('/ui-kit') ? 'flex' : 'hidden'} flex-nowrap items-center gap-5 w-full sm:w-auto overflow-x-auto ${submenuLinkClasses}`}>
     </ul>
     </div>
     </div>
