@@ -25,14 +25,6 @@ export const pageMeta: Record<string, PageMeta> = {
     title: 'Цены — Юни-С',
     description: 'Стоимость услуг алмазного сверления, резки проёмов и демонтажа конструкций в Санкт-Петербурге и ЛО.',
   },
-  '/hilti-repair': {
-    title: 'Ремонт оборудования HILTI — Юни-С',
-    description: 'Ремонт и обслуживание оборудования HILTI.',
-  },
-  '/hilti-supply': {
-    title: 'Поставки продукции HILTI — Юни-С',
-    description: 'Поставки продукции и расходных материалов HILTI.',
-  },
   '/ui-kit': {
     title: 'UI-kit — Юни-С',
     description: 'Служебная страница дизайн-системы сайта.',

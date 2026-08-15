@@ -6,7 +6,7 @@ const submenuLinkClasses = "pl-10 md:pl-20 pr-10 md:pr-20 [&_a]:flex [&_a]:items
 function Header() {
   const { pathname } = useLocation()
   const isActive = (to: string) => pathname === to
-  const isHomeSection = ['/', '/hilti-repair', '/hilti-supply'].includes(pathname)
+  const isHomeSection = pathname === '/'
   const headerRef = useRef<HTMLElement>(null)
 
   useEffect(() => {

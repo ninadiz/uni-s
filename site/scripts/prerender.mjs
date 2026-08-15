@@ -6,7 +6,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const distDir = path.join(root, 'dist')
 const ssrDir = path.join(root, 'dist-ssr')
 
-const routes = ['/', '/services', '/objects', '/prices', '/hilti-repair', '/hilti-supply', '/ui-kit']
+const routes = ['/', '/services', '/objects', '/prices', '/ui-kit']
 
 const escapeHtml = (value) =>
   value.replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char])

@@ -39,7 +39,7 @@ const usageAudit: UsageAuditRow[] = [
       default: { classes: 'text-base-wide font-light', render: 'text-base-wide font-light' },
       lg: { classes: 'lg:text-3xl', render: 'text-3xl font-light' },
     },
-    note: 'Баг: на страницах раздела Home (/, /hilti-repair, /hilti-supply) эта ссылка рендерится наоборот — 30px на мобильном и 16px на десктопе. Похоже на конфликт специфичности из-за селектора current-parent-item, нужен отдельный разбор.',
+    note: 'Баг: на главной (/) эта ссылка рендерится наоборот — 30px на мобильном и 16px на десктопе. Похоже на конфликт специфичности из-за селектора current-parent-item, нужен отдельный разбор.',
   },
   {
     group: 'Header',
