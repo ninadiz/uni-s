@@ -5,6 +5,7 @@ import Services from './pages/Services'
 import Objects from './pages/Objects'
 import Prices from './pages/Prices'
 import UiKit from './pages/UiKit'
+import NotFound from './pages/NotFound'
 
 function AppRoutes() {
   return (
@@ -15,6 +16,7 @@ function AppRoutes() {
         <Route path="objects" element={<Objects />} />
         <Route path="prices" element={<Prices />} />
         <Route path="ui-kit" element={<UiKit />} />
+        <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
   )
