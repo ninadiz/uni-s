@@ -7,14 +7,144 @@
 
 ## Критично
 
-- [ ] **robots.txt** — добавить `site/public/robots.txt` с базовыми директивами (`User-agent: *`, `Allow: /`, `Disallow: /ui-kit`, `Sitemap: https://<домен>/sitemap.xml`).
-- [ ] **sitemap.xml** — сгенерировать статический sitemap для реальных публичных маршрутов (`/`, `/services`, `/objects`, `/prices`) во время сборки (например, дописать генерацию в `scripts/prerender.mjs` или отдельный скрипт `scripts/sitemap.mjs`).
-- [ ] **Canonical + Open Graph + Twitter Card** — расширить `src/pageMeta.ts` полями `canonical`, `ogImage` и т.д.; прокинуть их в `PageMeta.tsx` (клиент) и `entry-server.tsx` / `prerender.mjs` (SSR/пререндер), аналогично тому, как сейчас подставляются `title`/`description`.
-- [ ] **JSON-LD LocalBusiness/Organization** — добавить структурированные данные (название, адрес, телефон, ИНН, соцсети) на главную страницу через компонент типа `<StructuredData>`, рендерящий `<script type="application/ld+json">`.
-- [ ] **Наполнить `/services` контентом** — [site/src/pages/Services.tsx](../site/src/pages/Services.tsx) сейчас содержит только `<h1>`. Перенести/расширить список услуг из секции на главной ([Home.tsx:52-84](../site/src/pages/Home.tsx)) в полноценный текст с описанием каждой услуги.
-- [ ] **Наполнить `/prices` контентом** — [site/src/pages/Prices.tsx](../site/src/pages/Prices.tsx) аналогично: таблица/список цен на алмазную резку, бурение, демонтаж, аренду оборудования.
-- [ ] **Fallback-заголовок в index.html** — [site/index.html:7-8](../site/index.html) заменить пустые `title`/`description` на осмысленные значения по умолчанию (совпадающие с `defaultMeta` из `pageMeta.ts`), чтобы не-пререндеренные/будущие маршруты не отдавали пустоту.
-- [ ] **404-страница и корректный статус** — добавить catch-all маршрут в `AppRoutes.tsx` (`<Route path="*" element={<NotFound />} />`) и настроить `.htaccess`/сервер так, чтобы несуществующие пути возвращали HTTP 404, а не 200 с пустым/дефолтным контентом.
+### 1. robots.txt
+
+Добавить статический файл `site/public/robots.txt` (Vite копирует всё из `public/` в корень `dist/` как есть):
+
+```
+User-agent: *
+Allow: /
+Disallow: /ui-kit
+
+Sitemap: https://<домен>/sitemap.xml
+```
+
+`Disallow: /ui-kit` убрать, когда/если страница будет закрыта через `noindex` (см. средний приоритет) — можно оставить оба варианта, они не конфликтуют.
+
+### 2. sitemap.xml
+
+Сгенерировать во время сборки, а не хранить руками — иначе разъедется со списком маршрутов. Проще всего расширить существующий `scripts/prerender.mjs` (там уже есть массив `routes`) или добавить рядом `scripts/sitemap.mjs`, который:
+
+1. Использует тот же список маршрутов, что и `prerender.mjs` (вынести `routes` в общий модуль, например `scripts/routes.mjs`, чтобы не дублировать).
+2. Пишет `dist/sitemap.xml`:
+   ```xml
+   <?xml version="1.0" encoding="UTF-8"?>
+   <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+     <url><loc>https://<домен>/</loc></url>
+     <url><loc>https://<домен>/services</loc></url>
+     <url><loc>https://<домен>/objects</loc></url>
+     <url><loc>https://<домен>/prices</loc></url>
+   </urlset>
+   ```
+   `/ui-kit` в sitemap не включать.
+3. Подключить вызов в `package.json` → `scripts.build`, сразу после `node scripts/prerender.mjs`.
+
+Когда появятся страницы объектов (`/objects/:slug`, средний приоритет) — добавить их сюда же из `src/lib/objects.ts`.
+
+### 3. Canonical + Open Graph + Twitter Card
+
+Расширить `PageMeta` в `src/pageMeta.ts`:
+
+```ts
+export type PageMeta = {
+  title: string
+  description: string
+  path: string        // '/', '/services', ... — для canonical и og:url
+  ogImage?: string     // абсолютный URL картинки для шеринга
+}
+```
+
+Ввести константу базового домена (например, `SITE_URL = 'https://<домен>'` в новом `src/config.ts`), чтобы не хардкодить домен в нескольких местах.
+
+- **Клиент** (`src/components/PageMeta.tsx`): по аналогии с тем, как сейчас обновляется `meta[name=description]`, добавить в `useEffect` создание/обновление `link[rel=canonical]` и `meta[property^=og:]`/`meta[name^=twitter:]`.
+- **Пререндер** (`src/entry-server.tsx` + `scripts/prerender.mjs`): `entry-server.tsx` уже возвращает `getPageMeta(url)` — добавить туда `canonical`/OG-поля. В `prerender.mjs`, где сейчас делается `replace` для `<title>` и `description`, добавить вставку недостающих тегов перед `</head>` (их сейчас в `index.html` вообще нет, поэтому это не replace, а insert):
+  ```js
+  const metaTags = `
+    <link rel="canonical" href="${SITE_URL}${url}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="${escapeHtml(title)}" />
+    <meta property="og:description" content="${escapeHtml(description)}" />
+    <meta property="og:url" content="${SITE_URL}${url}" />
+    <meta property="og:image" content="${SITE_URL}/og-cover.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+  `
+  html = html.replace('</head>', `${metaTags}</head>`)
+  ```
+- Подготовить одну общую og-картинку (1200×630) — например, `public/og-cover.jpg` — под соцсети/мессенджеры для всех страниц на первом этапе; позже можно сделать уникальную под `/objects`.
+
+### 4. JSON-LD LocalBusiness/Organization
+
+Данные не меняются по страницам — проще всего один раз прописать статический блок прямо в `site/index.html` перед `</head>` (он попадёт во все пререндеренные копии, т.к. `prerender.mjs` берёт `index.html` как шаблон):
+
+```html
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "ООО «Юни-С»",
+  "url": "https://<домен>/",
+  "telephone": "+7-965-080-88-08",
+  "email": "info@unis-tech.ru",
+  "taxID": "7811631793",
+  "areaServed": ["Санкт-Петербург", "Ленинградская область"],
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Санкт-Петербург",
+    "addressCountry": "RU"
+  }
+}
+</script>
+```
+
+Адрес/`sameAs` (ссылка на VK из футера) дополнить, если появятся точные данные. Если позже понадобится показывать разные `Service`-сущности на `/services`, можно вынести это в отдельный компонент и генерировать по странице — но для старта LocalBusiness в `index.html` достаточно.
+
+### 5. Наполнить `/services` контентом
+
+[site/src/pages/Services.tsx](../site/src/pages/Services.tsx) сейчас — это только `<h1>`. План:
+
+1. Вынести данные об услугах из секции на главной ([Home.tsx:52-84](../site/src/pages/Home.tsx)) в общий источник данных `src/lib/services.ts` (по образцу `src/lib/objects.ts`) — массив `{ slug, title, description, ...}`.
+2. На `/services` отрендерить полный список: для каждой услуги — заголовок (`h2`), связный текст на 300–500 знаков (что делаем, для каких объектов/материалов, чем отличаемся), можно переиспользовать существующий `ServiceCard`, но с расширённым описанием, а не тизером.
+3. Главная продолжает использовать тот же источник данных для тизера (первые 2–3 услуги + ссылка «Все услуги» на `/services`) — это избавляет от рассинхрона текста между страницами.
+
+### 6. Наполнить `/prices` контентом
+
+[site/src/pages/Prices.tsx](../site/src/pages/Prices.tsx) аналогично — только `<h1>`. План:
+
+1. Завести `src/lib/prices.ts` с массивом позиций `{ service, unit, priceFrom }` (алмазное бурение — за отверстие/диаметр, резка — за м², демонтаж — за м³, аренда оборудования с оператором — за смену/час).
+2. Отрендерить как таблицу или список карточек с `h2`/`h3` по группам услуг, ценой «от» и коротким пояснением, от чего зависит итоговая стоимость.
+3. Держать реальные диапазоны цен — пустая или сильно устаревшая таблица цен хуже, чем её отсутствие (доверие + жалобы на недостоверную информацию).
+
+### 7. Fallback-заголовок и description в index.html
+
+В [site/index.html:7-8](../site/index.html) заменить:
+
+```html
+<meta name="description" content="" />
+<title>site</title>
+```
+
+на значения, совпадающие с `defaultMeta` из `src/pageMeta.ts`:
+
+```html
+<meta name="description" content="Алмазное сверление, резка проёмов и демонтаж сложных конструкций в Санкт-Петербурге и Ленинградской области. Аренда стенорезного оборудования с оператором." />
+<title>Юни-С — алмазное сверление, резка проёмов и демонтаж в Санкт-Петербурге</title>
+```
+
+Так любой не пере-рендеренный маршрут (в т.ч. будущий) до подмены через `PageMeta.tsx`/JS отдаёт осмысленный тайтл, а не «site».
+
+### 8. 404-страница и корректный HTTP-статус
+
+Две независимые части — на клиенте и на сервере, обе нужны:
+
+- **Клиент/UX**: добавить `src/pages/NotFound.tsx` и catch-all маршрут в `AppRoutes.tsx`:
+  ```tsx
+  <Route path="*" element={<NotFound />} />
+  ```
+  В `pageMeta.ts`/`PageMeta.tsx` для этого случая проставлять `<meta name="robots" content="noindex">`, т.к. чисто клиентский роутинг не может изменить HTTP-статус ответа.
+- **Сервер (реальный HTTP 404)**: сейчас `public/.htaccess` рерайтит вообще любой несуществующий путь на `/index.html` (200 OK) — это «мягкий 404», поисковики такое не любят. Так как все текущие маршруты (`/`, `/services`, `/objects`, `/prices`) уже пререндерены в отдельные `dist/<route>/index.html`, Apache находит их как обычные файлы/директории и рерайт для них не требуется — блок в `.htaccess` фактически нужен только как страховка для несуществующих путей. Поэтому:
+  1. Добавить `404` в список пререндериваемых маршрутов (`dist/404.html` с контентом `NotFound.tsx` и `noindex`).
+  2. В `.htaccess` добавить `ErrorDocument 404 /404.html` и убрать безусловный рерайт на `index.html` для путей, которые не соответствуют ни одному известному файлу/директории — тогда Apache сам вернёт 404 со страницей `404.html` вместо переписывания в `index.html`.
+  3. Если позже появятся динамические маршруты (`/objects/:slug`, см. средний приоритет) — им рерайт на `index.html` всё ещё будет нужен, но проверку «объект существует» и `noindex`/404-текст для несуществующего slug придётся делать на клиенте (чисто статический хостинг не даст здесь настоящий 404-статус без серверной логики).
 
 ## Средний приоритет
 
