@@ -83,7 +83,7 @@ function Header() {
     </li>
     </ul>
     <div className="headerToolbar flex items-center gap-12 h-34">
-    <a href="tel:+70000000000" className="flex items-center gap-5 border no-underline cursor-pointer rounded-md bg-shop border-shop text-black hover:bg-notification hover:border-notification px-12 py-4 min-h-34">Позвонить директору</a>
+    <a href="tel:+79650808808" className="flex items-center gap-5 border no-underline cursor-pointer rounded-md bg-shop border-shop text-black hover:bg-notification hover:border-notification px-12 py-4 min-h-34">Позвонить директору</a>
     </div>
     </nav>
     <div className="submenus absolute left-0 top-42 lg:top-69 w-full sm:w-auto">
@@ -120,20 +120,6 @@ function Header() {
       aria-disabled={isActive('/hilti-supply') || undefined}
       tabIndex={isActive('/hilti-supply') ? -1 : undefined}
     >Поставки продукции HILTI</Link>
-    </li>
-    </ul>
-    <ul className={`${isActive('/services') ? 'flex' : 'hidden'} flex-nowrap items-center gap-5 w-full sm:w-auto overflow-x-auto ${submenuLinkClasses}`}>
-    <li className="">
-    <a href="https://displaay.net/typefaces" data-discover="true">All</a>
-    </li>
-    <li className="">
-    <a href="https://displaay.net/typefaces" data-discover="true">Sans</a>
-    </li>
-    <li className="">
-    <a href="https://displaay.net/typefaces" data-discover="true">Serif</a>
-    </li>
-    <li className="">
-    <a href="https://displaay.net/typefaces" data-discover="true">Other</a>
     </li>
     </ul>
     <ul className={`${isActive('/objects') ? 'flex' : 'hidden'} flex-nowrap items-center gap-5 w-full sm:w-auto overflow-x-auto ${submenuLinkClasses}`}>

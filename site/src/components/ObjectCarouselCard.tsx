@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-export type ObjectSlide = { label: string; color: string } | { src: string; alt: string }
+export type ObjectSlide = { label: string; color: string } | { src: string; srcSet?: string; alt: string }
 
 type ObjectCarouselCardProps = {
   title: string
@@ -24,7 +24,15 @@ function ObjectCarouselCard({ title, span, slides, meta }: ObjectCarouselCardPro
           <div className="embla__container">
             <div className="embla__slide w-full h-0 pb-[62.5%] relative overflow-hidden transition-all">
               {'src' in slide ? (
-                <img src={slide.src} alt={slide.alt} className="absolute inset-0 w-full h-full object-cover" />
+                <img
+                  src={slide.src}
+                  srcSet={slide.srcSet}
+                  sizes="(min-width: 768px) 33vw, 100vw"
+                  alt={slide.alt}
+                  loading="lazy"
+                  decoding="async"
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
               ) : (
                 <div
                   className="absolute inset-0 flex items-center justify-center"
