@@ -6,7 +6,7 @@ const submenuLinkClasses = "pl-10 md:pl-20 pr-10 md:pr-20 [&_a]:flex [&_a]:items
 function Header() {
   const { pathname } = useLocation()
   const isActive = (to: string) => pathname === to
-  const isHomeSection = ['/', '/hilti-repair', '/hilti-supply'].includes(pathname)
+  const isHomeSection = pathname === '/'
   const headerRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
@@ -83,7 +83,7 @@ function Header() {
     </li>
     </ul>
     <div className="headerToolbar flex items-center gap-12 h-34">
-    <a href="tel:+70000000000" className="flex items-center gap-5 border no-underline cursor-pointer rounded-md bg-shop border-shop text-black hover:bg-notification hover:border-notification px-12 py-4 min-h-34">Позвонить директору</a>
+    <a href="tel:+79650808808" className="flex items-center gap-5 border no-underline cursor-pointer rounded-md bg-shop border-shop text-black hover:bg-notification hover:border-notification px-12 py-4 min-h-34">Позвонить директору</a>
     </div>
     </nav>
     <div className="submenus absolute left-0 top-42 lg:top-69 w-full sm:w-auto">
@@ -99,81 +99,17 @@ function Header() {
     >Алмазная резка</Link>
     </li>
     <li className="">
-    <a href="index.html" data-discover="true">Комплексный демонтаж</a>
-    </li>
-    <li className={isActive('/hilti-repair') ? 'current-item' : ''}>
-    <Link
-      to="/hilti-repair"
-      data-discover="true"
-      className={isActive('/hilti-repair') ? 'pointer-events-none' : undefined}
-      aria-current={isActive('/hilti-repair') ? 'page' : undefined}
-      aria-disabled={isActive('/hilti-repair') || undefined}
-      tabIndex={isActive('/hilti-repair') ? -1 : undefined}
-    >Ремонт оборудования HILTI</Link>
-    </li>
-    <li className={isActive('/hilti-supply') ? 'current-item' : ''}>
-    <Link
-      to="/hilti-supply"
-      data-discover="true"
-      className={isActive('/hilti-supply') ? 'pointer-events-none' : undefined}
-      aria-current={isActive('/hilti-supply') ? 'page' : undefined}
-      aria-disabled={isActive('/hilti-supply') || undefined}
-      tabIndex={isActive('/hilti-supply') ? -1 : undefined}
-    >Поставки продукции HILTI</Link>
-    </li>
-    </ul>
-    <ul className={`${isActive('/services') ? 'flex' : 'hidden'} flex-nowrap items-center gap-5 w-full sm:w-auto overflow-x-auto ${submenuLinkClasses}`}>
-    <li className="">
-    <a href="https://displaay.net/typefaces" data-discover="true">All</a>
+    <a href="https://service.unis-tech.ru" target="_blank" rel="noopener noreferrer">Ремонт оборудования HILTI ↗</a>
     </li>
     <li className="">
-    <a href="https://displaay.net/typefaces" data-discover="true">Sans</a>
-    </li>
-    <li className="">
-    <a href="https://displaay.net/typefaces" data-discover="true">Serif</a>
-    </li>
-    <li className="">
-    <a href="https://displaay.net/typefaces" data-discover="true">Other</a>
+    <a href="https://service.unis-tech.ru" target="_blank" rel="noopener noreferrer">Поставки продукции HILTI ↗</a>
     </li>
     </ul>
     <ul className={`${isActive('/objects') ? 'flex' : 'hidden'} flex-nowrap items-center gap-5 w-full sm:w-auto overflow-x-auto ${submenuLinkClasses}`}>
     </ul>
     <ul className={`${isActive('/prices') ? 'flex' : 'hidden'} flex-nowrap items-center gap-5 w-full sm:w-auto overflow-x-auto ${submenuLinkClasses}`}>
-    <li className="">
-    <a href="https://displaay.net/help/contact" data-discover="true">Contact</a>
-    </li>
-    <li className="">
-    <a href="https://displaay.net/help/faq" data-discover="true">FAQ</a>
-    </li>
-    <li className="">
-    <a href="https://displaay.net/help/licenses" data-discover="true">License</a>
-    </li>
-    <li className="">
-    <a href="https://displaay.net/help/discounts" data-discover="true">Discounts</a>
-    </li>
     </ul>
     <ul className={`${isActive('/ui-kit') ? 'flex' : 'hidden'} flex-nowrap items-center gap-5 w-full sm:w-auto overflow-x-auto ${submenuLinkClasses}`}>
-    <li className="">
-    <a href="https://displaay.net/about" data-discover="true">Profile</a>
-    </li>
-    <li className="">
-    <a href="https://displaay.net/about" data-discover="true">Studio</a>
-    </li>
-    <li className="">
-    <a href="https://displaay.net/about" data-discover="true">Team</a>
-    </li>
-    <li className="">
-    <a href="https://displaay.net/about" data-discover="true">Clients</a>
-    </li>
-    <li className="">
-    <a href="https://displaay.net/about" data-discover="true">Services</a>
-    </li>
-    <li className="">
-    <a href="https://displaay.net/about" data-discover="true">Join</a>
-    </li>
-    <li className="">
-    <a href="https://displaay.net/newsletter" data-discover="true">Newsletter</a>
-    </li>
     </ul>
     </div>
     </div>

@@ -2,7 +2,10 @@
   RewriteEngine On
   RewriteBase /
   RewriteRule ^index\.html$ - [L]
-  RewriteCond %{REQUEST_FILENAME} !-f
-  RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteRule . /index.html [L]
 </IfModule>
+
+# All routes are prerendered to real files/directories at build time (see
+# scripts/prerender.mjs), so unmatched requests are genuinely missing pages —
+# serve the prerendered 404 page with a real 404 status instead of silently
+# rewriting everything to index.html (which used to return 200 for any URL).
+ErrorDocument 404 /404.html

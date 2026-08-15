@@ -1,44 +1,70 @@
+import { objects } from './lib/objects'
+
 export type PageMeta = {
   title: string
   description: string
+  /** Route path, used to build canonical/og:url. */
+  path: string
+  /** Set to keep this route out of search results (internal/service pages, 404). */
+  noindex?: boolean
 }
 
 export const defaultMeta: PageMeta = {
-  title: 'Юни-С — алмазное сверление, резка проёмов и демонтаж в Санкт-Петербурге',
+  title: 'Юни-С — алмазная резка и демонтаж в Санкт-Петербурге',
   description:
     'Алмазное сверление, резка проёмов и демонтаж сложных конструкций в Санкт-Петербурге и Ленинградской области. Аренда стенорезного оборудования с оператором.',
+  path: '/',
 }
 
 export const pageMeta: Record<string, PageMeta> = {
   '/': defaultMeta,
   '/services': {
-    title: 'Услуги — Юни-С',
+    title: 'Услуги — алмазная резка, бурение, демонтаж | Юни-С',
     description:
       'Алмазная резка стенорезными машинами, бурение отверстий, демонтаж бетонных конструкций и аренда оборудования с оператором.',
+    path: '/services',
   },
   '/objects': {
     title: 'Реализованные объекты — Юни-С',
     description:
       'Примеры выполненных проектов по алмазному сверлению, резке проёмов и демонтажу — от жилых домов до промышленных объектов.',
+    path: '/objects',
   },
   '/prices': {
-    title: 'Цены — Юни-С',
+    title: 'Цены на алмазную резку и демонтаж | Юни-С',
     description: 'Стоимость услуг алмазного сверления, резки проёмов и демонтажа конструкций в Санкт-Петербурге и ЛО.',
-  },
-  '/hilti-repair': {
-    title: 'Ремонт оборудования HILTI — Юни-С',
-    description: 'Ремонт и обслуживание оборудования HILTI.',
-  },
-  '/hilti-supply': {
-    title: 'Поставки продукции HILTI — Юни-С',
-    description: 'Поставки продукции и расходных материалов HILTI.',
+    path: '/prices',
   },
   '/ui-kit': {
     title: 'UI-kit — Юни-С',
     description: 'Служебная страница дизайн-системы сайта.',
+    path: '/ui-kit',
+    noindex: true,
   },
 }
 
+export const notFoundMeta: PageMeta = {
+  title: 'Страница не найдена — Юни-С',
+  description: 'Запрашиваемая страница не найдена.',
+  path: '/404',
+  noindex: true,
+}
+
+export function getObjectMeta(slug: string): PageMeta | undefined {
+  const object = objects.find((entry) => entry.slug === slug)
+  if (!object) return undefined
+
+  const title = object.info.header || object.info.objectName || object.info.clientName || slug
+  return {
+    title: `${title} — Юни-С`,
+    description: `${object.info.description} — проект Юни-С, ${object.info.year} год.`,
+    path: `/objects/${slug}`,
+  }
+}
+
 export function getPageMeta(pathname: string): PageMeta {
-  return pageMeta[pathname] ?? defaultMeta
+  if (pathname.startsWith('/objects/')) {
+    return getObjectMeta(pathname.slice('/objects/'.length)) ?? notFoundMeta
+  }
+  return pageMeta[pathname] ?? notFoundMeta
 }
