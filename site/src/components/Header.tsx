@@ -99,27 +99,10 @@ function Header() {
     >Алмазная резка</Link>
     </li>
     <li className="">
-    <a href="index.html" data-discover="true">Комплексный демонтаж</a>
+    <a href="https://service.unis-tech.ru" target="_blank" rel="noreferrer">Ремонт оборудования HILTI ↗</a>
     </li>
-    <li className={isActive('/hilti-repair') ? 'current-item' : ''}>
-    <Link
-      to="/hilti-repair"
-      data-discover="true"
-      className={isActive('/hilti-repair') ? 'pointer-events-none' : undefined}
-      aria-current={isActive('/hilti-repair') ? 'page' : undefined}
-      aria-disabled={isActive('/hilti-repair') || undefined}
-      tabIndex={isActive('/hilti-repair') ? -1 : undefined}
-    >Ремонт оборудования HILTI</Link>
-    </li>
-    <li className={isActive('/hilti-supply') ? 'current-item' : ''}>
-    <Link
-      to="/hilti-supply"
-      data-discover="true"
-      className={isActive('/hilti-supply') ? 'pointer-events-none' : undefined}
-      aria-current={isActive('/hilti-supply') ? 'page' : undefined}
-      aria-disabled={isActive('/hilti-supply') || undefined}
-      tabIndex={isActive('/hilti-supply') ? -1 : undefined}
-    >Поставки продукции HILTI</Link>
+    <li className="">
+    <a href="https://service.unis-tech.ru" target="_blank" rel="noreferrer">Поставки продукции HILTI ↗</a>
     </li>
     </ul>
     <ul className={`${isActive('/objects') ? 'flex' : 'hidden'} flex-nowrap items-center gap-5 w-full sm:w-auto overflow-x-auto ${submenuLinkClasses}`}>
