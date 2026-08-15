@@ -12,10 +12,13 @@ const escapeHtml = (value) =>
   value.replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char])
 
 const template = fs.readFileSync(path.join(distDir, 'index.html'), 'utf-8')
-const { render } = await import(path.join(ssrDir, 'entry-server.js'))
+const { render, objectSlugs } = await import(path.join(ssrDir, 'entry-server.js'))
+
+const objectRoutes = objectSlugs.map((slug) => ({ path: `/objects/${slug}` }))
+const allRoutes = [...routes, ...objectRoutes]
 
 // The 404 page has no real route to prerender from — render it via the SPA catch-all instead.
-const prerenderUrls = [...routes.map((route) => route.path), '/__not-found']
+const prerenderUrls = [...allRoutes.map((route) => route.path), '/__not-found']
 
 for (const url of prerenderUrls) {
   const { appHtml, title, description, path: metaPath, noindex } = render(url)
@@ -41,6 +44,11 @@ for (const url of prerenderUrls) {
   fs.mkdirSync(path.dirname(outPath), { recursive: true })
   fs.writeFileSync(outPath, html)
 }
+
+// Consumed by sitemap.mjs (runs as a separate script right after this one)
+// so it knows about dynamic /objects/:slug routes without re-deriving them;
+// deleted again once the sitemap is written.
+fs.writeFileSync(path.join(distDir, '.routes-manifest.json'), JSON.stringify(allRoutes))
 
 fs.rmSync(ssrDir, { recursive: true, force: true })
 console.log(`Prerendered ${prerenderUrls.length} route(s).`)

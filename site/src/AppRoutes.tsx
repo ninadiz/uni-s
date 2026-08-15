@@ -3,6 +3,7 @@ import Layout from './components/Layout'
 import Home from './pages/Home'
 import Services from './pages/Services'
 import Objects from './pages/Objects'
+import ObjectDetail from './pages/ObjectDetail'
 import Prices from './pages/Prices'
 import UiKit from './pages/UiKit'
 import NotFound from './pages/NotFound'
@@ -14,6 +15,7 @@ function AppRoutes() {
         <Route index element={<Home />} />
         <Route path="services" element={<Services />} />
         <Route path="objects" element={<Objects />} />
+        <Route path="objects/:slug" element={<ObjectDetail />} />
         <Route path="prices" element={<Prices />} />
         <Route path="ui-kit" element={<UiKit />} />
         <Route path="*" element={<NotFound />} />

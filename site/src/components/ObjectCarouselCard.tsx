@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 export type ObjectSlide = { label: string; color: string } | { src: string; srcSet?: string; alt: string }
 
@@ -7,9 +8,10 @@ type ObjectCarouselCardProps = {
   span: string
   slides: ObjectSlide[]
   meta?: string
+  to?: string
 }
 
-function ObjectCarouselCard({ title, span, slides, meta }: ObjectCarouselCardProps) {
+function ObjectCarouselCard({ title, span, slides, meta, to }: ObjectCarouselCardProps) {
   const [index, setIndex] = useState(0)
   const total = slides.length
   const slide = slides[index]
@@ -17,31 +19,37 @@ function ObjectCarouselCard({ title, span, slides, meta }: ObjectCarouselCardPro
   const prev = () => setIndex((current) => (current - 1 + total) % total)
   const next = () => setIndex((current) => (current + 1) % total)
 
+  const slideContent =
+    'src' in slide ? (
+      <img
+        src={slide.src}
+        srcSet={slide.srcSet}
+        sizes="(min-width: 768px) 33vw, 100vw"
+        alt={slide.alt}
+        loading="lazy"
+        decoding="async"
+        className="absolute inset-0 w-full h-full object-cover"
+      />
+    ) : (
+      <div className="absolute inset-0 flex items-center justify-center" style={{ backgroundColor: slide.color }}>
+        <span className="whitespace-nowrap flex items-center justify-center w-full h-full overflow-hidden text-xs-wide text-black uppercase tracking-wider">
+          {slide.label}
+        </span>
+      </div>
+    )
+
   return (
     <article className={`group col-span-6 ${span}`}>
       <div className="mb-9 md:mb-11">
         <div className="embla relative">
           <div className="embla__container">
             <div className="embla__slide w-full h-0 pb-[62.5%] relative overflow-hidden transition-all">
-              {'src' in slide ? (
-                <img
-                  src={slide.src}
-                  srcSet={slide.srcSet}
-                  sizes="(min-width: 768px) 33vw, 100vw"
-                  alt={slide.alt}
-                  loading="lazy"
-                  decoding="async"
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
+              {to ? (
+                <Link to={to} aria-label={title} className="absolute inset-0 block">
+                  {slideContent}
+                </Link>
               ) : (
-                <div
-                  className="absolute inset-0 flex items-center justify-center"
-                  style={{ backgroundColor: slide.color }}
-                >
-                  <span className="whitespace-nowrap flex items-center justify-center w-full h-full overflow-hidden text-xs-wide text-black uppercase tracking-wider">
-                    {slide.label}
-                  </span>
-                </div>
+                slideContent
               )}
             </div>
           </div>
@@ -49,7 +57,7 @@ function ObjectCarouselCard({ title, span, slides, meta }: ObjectCarouselCardPro
       </div>
       <div className="flex justify-between md:justify-start items-center gap-15">
         <div>
-          <h4 className="text-2xl-7-wide sm:text-3xl">{title}</h4>
+          <h3 className="text-2xl-7-wide sm:text-3xl">{to ? <Link to={to}>{title}</Link> : title}</h3>
           {meta && <div className="text-xs-wide text-pigeon mt-4">{meta}</div>}
         </div>
         <div className="embla__controls tabular-nums h-34 md:h-37 rounded-base bg-black text-white flex items-center text-base-wide gap-5 relative px-32 md:px-10 transition-all md:group-hover:px-32">

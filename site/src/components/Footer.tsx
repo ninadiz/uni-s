@@ -43,7 +43,7 @@ function Footer() {
             <a
               href="https://vk.com/unistech"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="text-base-wide no-underline hover:text-pigeon"
             >
               Сообщество в VK

@@ -99,10 +99,10 @@ function Header() {
     >Алмазная резка</Link>
     </li>
     <li className="">
-    <a href="https://service.unis-tech.ru" target="_blank" rel="noreferrer">Ремонт оборудования HILTI ↗</a>
+    <a href="https://service.unis-tech.ru" target="_blank" rel="noopener noreferrer">Ремонт оборудования HILTI ↗</a>
     </li>
     <li className="">
-    <a href="https://service.unis-tech.ru" target="_blank" rel="noreferrer">Поставки продукции HILTI ↗</a>
+    <a href="https://service.unis-tech.ru" target="_blank" rel="noopener noreferrer">Поставки продукции HILTI ↗</a>
     </li>
     </ul>
     <ul className={`${isActive('/objects') ? 'flex' : 'hidden'} flex-nowrap items-center gap-5 w-full sm:w-auto overflow-x-auto ${submenuLinkClasses}`}>
@@ -110,27 +110,6 @@ function Header() {
     <ul className={`${isActive('/prices') ? 'flex' : 'hidden'} flex-nowrap items-center gap-5 w-full sm:w-auto overflow-x-auto ${submenuLinkClasses}`}>
     </ul>
     <ul className={`${isActive('/ui-kit') ? 'flex' : 'hidden'} flex-nowrap items-center gap-5 w-full sm:w-auto overflow-x-auto ${submenuLinkClasses}`}>
-    <li className="">
-    <a href="https://displaay.net/about" data-discover="true">Profile</a>
-    </li>
-    <li className="">
-    <a href="https://displaay.net/about" data-discover="true">Studio</a>
-    </li>
-    <li className="">
-    <a href="https://displaay.net/about" data-discover="true">Team</a>
-    </li>
-    <li className="">
-    <a href="https://displaay.net/about" data-discover="true">Clients</a>
-    </li>
-    <li className="">
-    <a href="https://displaay.net/about" data-discover="true">Services</a>
-    </li>
-    <li className="">
-    <a href="https://displaay.net/about" data-discover="true">Join</a>
-    </li>
-    <li className="">
-    <a href="https://displaay.net/newsletter" data-discover="true">Newsletter</a>
-    </li>
     </ul>
     </div>
     </div>

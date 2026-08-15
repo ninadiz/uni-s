@@ -12,7 +12,15 @@ function Objects() {
         <div className="grid grid-cols-6 items-start gap-x-15 gap-y-25">
           {objects.map((object) => {
             const { title, slides } = toObjectCard(object)
-            return <ObjectCarouselCard key={object.slug} title={title} span="md:col-span-2" slides={slides} />
+            return (
+              <ObjectCarouselCard
+                key={object.slug}
+                title={title}
+                span="md:col-span-2"
+                slides={slides}
+                to={`/objects/${object.slug}`}
+              />
+            )
           })}
         </div>
       </section>

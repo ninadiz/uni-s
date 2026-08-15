@@ -1,3 +1,5 @@
+import { objects } from './lib/objects'
+
 export type PageMeta = {
   title: string
   description: string
@@ -8,7 +10,7 @@ export type PageMeta = {
 }
 
 export const defaultMeta: PageMeta = {
-  title: 'Юни-С — алмазное сверление, резка проёмов и демонтаж в Санкт-Петербурге',
+  title: 'Юни-С — алмазная резка и демонтаж в Санкт-Петербурге',
   description:
     'Алмазное сверление, резка проёмов и демонтаж сложных конструкций в Санкт-Петербурге и Ленинградской области. Аренда стенорезного оборудования с оператором.',
   path: '/',
@@ -17,7 +19,7 @@ export const defaultMeta: PageMeta = {
 export const pageMeta: Record<string, PageMeta> = {
   '/': defaultMeta,
   '/services': {
-    title: 'Услуги — Юни-С',
+    title: 'Услуги — алмазная резка, бурение, демонтаж | Юни-С',
     description:
       'Алмазная резка стенорезными машинами, бурение отверстий, демонтаж бетонных конструкций и аренда оборудования с оператором.',
     path: '/services',
@@ -29,7 +31,7 @@ export const pageMeta: Record<string, PageMeta> = {
     path: '/objects',
   },
   '/prices': {
-    title: 'Цены — Юни-С',
+    title: 'Цены на алмазную резку и демонтаж | Юни-С',
     description: 'Стоимость услуг алмазного сверления, резки проёмов и демонтажа конструкций в Санкт-Петербурге и ЛО.',
     path: '/prices',
   },
@@ -48,6 +50,21 @@ export const notFoundMeta: PageMeta = {
   noindex: true,
 }
 
+export function getObjectMeta(slug: string): PageMeta | undefined {
+  const object = objects.find((entry) => entry.slug === slug)
+  if (!object) return undefined
+
+  const title = object.info.header || object.info.objectName || object.info.clientName || slug
+  return {
+    title: `${title} — Юни-С`,
+    description: `${object.info.description} — проект Юни-С, ${object.info.year} год.`,
+    path: `/objects/${slug}`,
+  }
+}
+
 export function getPageMeta(pathname: string): PageMeta {
+  if (pathname.startsWith('/objects/')) {
+    return getObjectMeta(pathname.slice('/objects/'.length)) ?? notFoundMeta
+  }
   return pageMeta[pathname] ?? notFoundMeta
 }
