@@ -125,18 +125,6 @@ function Header() {
     <ul className={`${isActive('/objects') ? 'flex' : 'hidden'} flex-nowrap items-center gap-5 w-full sm:w-auto overflow-x-auto ${submenuLinkClasses}`}>
     </ul>
     <ul className={`${isActive('/prices') ? 'flex' : 'hidden'} flex-nowrap items-center gap-5 w-full sm:w-auto overflow-x-auto ${submenuLinkClasses}`}>
-    <li className="">
-    <a href="https://displaay.net/help/contact" data-discover="true">Contact</a>
-    </li>
-    <li className="">
-    <a href="https://displaay.net/help/faq" data-discover="true">FAQ</a>
-    </li>
-    <li className="">
-    <a href="https://displaay.net/help/licenses" data-discover="true">License</a>
-    </li>
-    <li className="">
-    <a href="https://displaay.net/help/discounts" data-discover="true">Discounts</a>
-    </li>
     </ul>
     <ul className={`${isActive('/ui-kit') ? 'flex' : 'hidden'} flex-nowrap items-center gap-5 w-full sm:w-auto overflow-x-auto ${submenuLinkClasses}`}>
     <li className="">
