@@ -113,13 +113,14 @@ body {
   .cursor-dot,
   .cursor-ring {
     position: fixed;
-    left: -100px;
-    top: -100px;
+    left: 0;
+    top: 0;
+    translate: -100px -100px;
     border-radius: var(--radius-full);
     pointer-events: none;
     transform: translate(-50%, -50%);
     opacity: 0;
-    will-change: left, top;
+    will-change: translate;
   }
 
   .cursor-dot.is-visible,
@@ -146,7 +147,7 @@ body {
       border-color 0.25s,
       background 0.25s,
       opacity 0.2s,
-      transform 0.15s ease-out;
+      scale 0.15s ease-out;
   }
 
   .cursor-ring.is-hovered {
@@ -155,7 +156,7 @@ body {
   }
 
   .cursor-ring.is-clicking {
-    transform: translate(-50%, -50%) scale(0.5);
+    scale: 0.5;
   }
 
   .cursor-dot.is-hovered.is-dark {

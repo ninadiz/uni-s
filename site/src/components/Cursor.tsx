@@ -43,23 +43,34 @@ function Cursor() {
     let mouseY = -100
     let ringX = -100
     let ringY = -100
-    let frame: number
+    let frame = 0
+    let ticking = false
+
+    const startTicking = () => {
+      if (ticking) return
+      ticking = true
+      frame = requestAnimationFrame(tick)
+    }
 
     const handleMouseMove = (e: MouseEvent) => {
       mouseX = e.clientX
       mouseY = e.clientY
-      dot.style.left = `${mouseX}px`
-      dot.style.top = `${mouseY}px`
+      dot.style.translate = `${mouseX}px ${mouseY}px`
       dot.classList.add('is-visible')
       ring.classList.add('is-visible')
+      startTicking()
     }
 
     const tick = () => {
       ringX += (mouseX - ringX) * 0.12
       ringY += (mouseY - ringY) * 0.12
-      ring.style.left = `${Math.round(ringX)}px`
-      ring.style.top = `${Math.round(ringY)}px`
-      frame = requestAnimationFrame(tick)
+      ring.style.translate = `${Math.round(ringX)}px ${Math.round(ringY)}px`
+
+      if (Math.abs(mouseX - ringX) > 0.5 || Math.abs(mouseY - ringY) > 0.5) {
+        frame = requestAnimationFrame(tick)
+      } else {
+        ticking = false
+      }
     }
 
     const applyState = (target: Element | null) => {
@@ -96,7 +107,6 @@ function Cursor() {
     document.addEventListener('mouseleave', handleMouseLeaveWindow)
     document.addEventListener('mousedown', handleMouseDown, { passive: true })
     document.addEventListener('mouseup', handleMouseUp, { passive: true })
-    frame = requestAnimationFrame(tick)
 
     return () => {
       document.removeEventListener('mousemove', handleMouseMove)
