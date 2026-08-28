@@ -134,7 +134,7 @@ body {
   container-type: inline-size;
 }
 
-/* Edge fades: the strip lives on the white body background, so two 60px
+/* Edge fades: the strip lives on the white body background, so two 120px
    white-to-transparent gradients over the left/right edges let logos dissolve
    in and out instead of being clipped by `overflow: hidden`. Uses
    `rgb(255 255 255 / 0)` rather than `transparent` so the fade never tints
@@ -145,7 +145,7 @@ body {
   position: absolute;
   top: 0;
   bottom: 0;
-  width: 60px;
+  width: 120px;
   z-index: 2;
   pointer-events: none;
 }
