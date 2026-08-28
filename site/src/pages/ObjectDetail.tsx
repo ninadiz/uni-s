@@ -14,7 +14,7 @@ function ObjectDetail() {
 
   return (
     <>
-      <section className="bg-menu px-10 md:px-24 pt-64 pb-24 flex flex-col gap-15">
+      <section className="bg-menu px-10 md:px-24 pt-24 md:pt-64 pb-24 flex flex-col gap-15">
         <Link to="/objects" className="text-base-wide underline w-fit">
           ← Все объекты
         </Link>

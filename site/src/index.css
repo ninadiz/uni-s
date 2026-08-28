@@ -125,6 +125,62 @@ body {
   }
 }
 
+/* Client logo marquee. The logo list is rendered twice inside the track so a
+   translateX(-50%) loop is seamless. Slot width is set in container-query units
+   so ~5 logos sit in view on desktop, ~3 on tablet, ~2 on mobile, regardless
+   of the section's own padding. Reduced motion: no auto-scroll, the second copy
+   is hidden and the strip becomes a normal horizontal scroller. */
+.logo-marquee {
+  container-type: inline-size;
+}
+
+.logo-marquee__track {
+  display: flex;
+  width: max-content;
+  animation: logo-marquee 45s linear infinite;
+}
+
+.logo-marquee:hover .logo-marquee__track,
+.logo-marquee:focus-within .logo-marquee__track {
+  animation-play-state: paused;
+}
+
+.logo-marquee__slot {
+  flex: 0 0 40cqw;
+}
+
+@container (min-width: 640px) {
+  .logo-marquee__slot {
+    flex-basis: 30cqw;
+  }
+}
+
+@container (min-width: 960px) {
+  .logo-marquee__slot {
+    flex-basis: 20cqw;
+  }
+}
+
+@keyframes logo-marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logo-marquee {
+    overflow-x: auto;
+  }
+
+  .logo-marquee__track {
+    animation: none;
+  }
+
+  .logo-marquee__group[aria-hidden="true"] {
+    display: none;
+  }
+}
+
 /* Custom cursor */
 @media (pointer: fine) {
   * {
