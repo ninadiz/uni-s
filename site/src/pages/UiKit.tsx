@@ -13,7 +13,7 @@ const textStyles = [
 
 // Брейкпоинты Tailwind (дефолтные, не переопределены в теме): sm=640px lg=1024px.
 // md/xl/2xl нигде в коде не используются для типографики, поэтому в таблице их нет.
-// classes — реальная запись из кода (для документации), render — те же классы без sm:/lg:
+// classes: реальная запись из кода (для документации), render: те же классы без sm:/lg:
 // префикса, чтобы можно было отрисовать живой образец текста независимо от ширины окна.
 // Отсутствие ключа у брейкпоинта = нет своего класса, значение наследуется с предыдущей колонки.
 const SAMPLE_TEXT = 'Алмазное сверление, резка проёмов и демонтаж сложных конструкций'
@@ -39,7 +39,7 @@ const usageAudit: UsageAuditRow[] = [
       default: { classes: 'text-base-wide font-light', render: 'text-base-wide font-light' },
       lg: { classes: 'lg:text-3xl', render: 'text-3xl font-light' },
     },
-    note: 'Баг: на главной (/) эта ссылка рендерится наоборот — 30px на мобильном и 16px на десктопе. Похоже на конфликт специфичности из-за селектора current-parent-item, нужен отдельный разбор.',
+    note: 'Баг: на главной (/) эта ссылка рендерится наоборот, 30px на мобильном и 16px на десктопе. Похоже на конфликт специфичности из-за селектора current-parent-item, нужен отдельный разбор.',
   },
   {
     group: 'Header',
@@ -49,7 +49,7 @@ const usageAudit: UsageAuditRow[] = [
       default: { classes: 'text-base-wide font-light', render: 'text-base-wide font-light' },
       lg: { classes: 'lg:text-3xl', render: 'text-3xl font-light' },
     },
-    note: 'Единственное место на сайте, где переключение размера происходит на lg, а не на sm — от 640 до 1023px пункты меню ещё маленькие.',
+    note: 'Единственное место на сайте, где переключение размера происходит на lg, а не на sm: от 640 до 1023px пункты меню ещё маленькие.',
   },
   {
     group: 'H1',
@@ -141,10 +141,10 @@ function UiKit() {
         <p className="text-base-wide">
           Базовый размер шрифта <code className="bg-submenu px-4 rounded-sm">html {'{'} font-size: 16px {'}'}</code>.
           Все размеры в теме заданы в <code className="bg-submenu px-4 rounded-sm">rem</code> с шагом 0.125rem (как в
-          Tailwind), поэтому 1rem = 16px — стандартное значение браузера. Имена текстовых стилей следуют схеме{' '}
-          <code className="bg-submenu px-4 rounded-sm">text-{'{'}size{'}'}-{'{'}tracking{'}'}</code>, где size —
-          ближайший размер из шкалы Tailwind, leading — фиксированное значение из шкалы Tailwind{' '}
-          <code className="bg-submenu px-4 rounded-sm">leading-N</code> (N × 0.25rem), tracking — межбуквенный
+          Tailwind), поэтому 1rem = 16px, стандартное значение браузера. Имена текстовых стилей следуют схеме{' '}
+          <code className="bg-submenu px-4 rounded-sm">text-{'{'}size{'}'}-{'{'}tracking{'}'}</code>, где size это
+          ближайший размер из шкалы Tailwind, leading это фиксированное значение из шкалы Tailwind{' '}
+          <code className="bg-submenu px-4 rounded-sm">leading-N</code> (N × 0.25rem), tracking это межбуквенный
           интервал (tight / normal / wide).
         </p>
       </section>
@@ -156,7 +156,7 @@ function UiKit() {
             <div key={style.name} className="border-b border-black pb-20">
               <div className={style.name}>Алмазное сверление, резка проёмов</div>
               <div className="text-xs-wide text-pigeon mt-8">
-                {style.name} — {style.size} ({parseFloat(style.size) * 16}px) / {style.lineHeight} /{' '}
+                {style.name}: {style.size} ({parseFloat(style.size) * 16}px) / {style.lineHeight} /{' '}
                 {style.tracking}
               </div>
             </div>
@@ -167,7 +167,7 @@ function UiKit() {
       <section className="mb-60">
         <h2 className="text-2xl mb-10">Аудит по элементам</h2>
         <p className="text-xs-wide text-pigeon mb-20">
-          Как выглядят классы Tailwind сейчас, «как есть», по факту в коде — до того как договоримся об общих
+          Как выглядят классы Tailwind сейчас, «как есть», по факту в коде, до того как договоримся об общих
           правилах для каждого элемента.
         </p>
         <div className="overflow-x-auto">

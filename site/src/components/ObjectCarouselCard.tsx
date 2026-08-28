@@ -9,9 +9,10 @@ type ObjectCarouselCardProps = {
   slides: ObjectSlide[]
   meta?: string
   to?: string
+  className?: string
 }
 
-function ObjectCarouselCard({ title, span, slides, meta, to }: ObjectCarouselCardProps) {
+function ObjectCarouselCard({ title, span, slides, meta, to, className = '' }: ObjectCarouselCardProps) {
   const [index, setIndex] = useState(0)
   const total = slides.length
   const slide = slides[index]
@@ -39,7 +40,7 @@ function ObjectCarouselCard({ title, span, slides, meta, to }: ObjectCarouselCar
     )
 
   return (
-    <article className={`group col-span-6 ${span}`}>
+    <article className={`group col-span-6 ${span} ${className}`}>
       <div className="mb-9 md:mb-11">
         <div className="embla relative">
           <div className="embla__container">

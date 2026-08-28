@@ -63,7 +63,7 @@ function Footer() {
 
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-10 py-20 text-xs-wide text-pigeon">
         <p>
-          © 2014–2026 Uni-S. Все права защищены,{' '}
+          © 2014-2026 Uni-S. Все права защищены,{' '}
           <a href="#" className="underline hover:text-black">
             Политика конфиденциальности
           </a>

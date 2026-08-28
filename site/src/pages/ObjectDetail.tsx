@@ -32,7 +32,7 @@ function ObjectDetail() {
                 src={photo.src}
                 srcSet={photo.srcSet}
                 sizes="(min-width: 768px) 33vw, 50vw"
-                alt={`${title} — фото ${i + 1}`}
+                alt={`${title}, фото ${i + 1}`}
                 loading="lazy"
                 decoding="async"
                 className="w-full h-auto aspect-[4/3] object-cover"

@@ -7,10 +7,10 @@ import logoNordStream from '../assets/client-logos/logo-nord-stream.svg'
 type LogoEntry = { src: string; alt: string }
 
 const logos: LogoEntry[] = [
-  { src: logoTrest, alt: 'Trest' },
+  { src: logoTrest, alt: 'Трест' },
   { src: logoGlorax, alt: 'Glorax' },
   { src: logoLsr, alt: 'LSR' },
-  { src: logoUstluga, alt: 'Ustluga' },
+  { src: logoUstluga, alt: 'Усть-Луга' },
   { src: logoNordStream, alt: 'Nord Stream' },
 ]
 
