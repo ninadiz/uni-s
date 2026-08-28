@@ -22,7 +22,9 @@ function isOnDarkSurface(el: Element | null): boolean {
       if (alpha > 0.5) {
         const [r, g, b] = [match[1], match[2], match[3]].map(Number)
         const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255
-        return luminance < 0.5
+        // Only near-black surfaces flip the cursor to white. The grey (#c9cac9,
+        // ~0.79) and accent-red (#c1121c, ~0.28) buttons stay on a black cursor.
+        return luminance < 0.2
       }
     }
     node = node.parentElement

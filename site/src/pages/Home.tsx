@@ -36,27 +36,27 @@ const featuredObjects = getFeaturedObjects()
 function Home() {
   return (
     <>
-      <section className="h-[calc(100vh-var(--header-height,150px))] flex flex-col">
-        <div className="flex-1 bg-menu px-10 md:px-24 pb-24 flex flex-col md:flex-row md:items-end md:justify-between gap-20">
-          <h1 className="max-w-full md:max-w-[62%] w-[935px] text-3xl sm:text-5xl">
+      <section className="flex flex-col md:h-[calc(100vh-var(--header-height,150px))]">
+        <div className="flex-1 bg-menu px-16 md:px-24 pt-20 pb-24 md:pt-0 flex flex-col md:flex-row md:items-end md:justify-between gap-20">
+          <h1 className="max-w-full md:max-w-[62%] md:w-[935px] text-3xl sm:text-5xl">
             Алмазное сверление, резка проёмов и демонтаж сложных конструкций
             <span className="block text-black/50">в Санкт-Петербурге и ЛО</span>
           </h1>
         </div>
 
-        <div className="my-64 px-10 md:px-20 lg:px-40">
+        <div className="my-32 md:my-64 px-16 md:px-20 lg:px-40">
           <ClientLogos />
         </div>
       </section>
 
-      <section id="services" className="mt-60 md:mt-100 px-10 md:px-20 lg:px-40 scroll-mt-[var(--header-height)]">
+      <section id="services" className="mt-60 md:mt-100 px-16 md:px-20 lg:px-40 scroll-mt-[var(--header-height)]">
         <div className="pt-15 grid grid-cols-1 md:grid-cols-2 gap-15 md:gap-40 items-start">
-          <div className="flex flex-col gap-20 sm:gap-32">
+          <div className="reveal flex flex-col gap-20 sm:gap-32">
             <h2 className="text-4xl sm:text-5xl transition-all">
               Услуги
             </h2>
             <p className="text-xl-wide">
-              Полный комплекс алмазных работ — от резки и бурения до аренды оборудования с оператором.
+              Полный комплекс алмазных работ, от резки и бурения до аренды оборудования с оператором.
             </p>
             <ul className="text-xl-wide flex flex-col gap-8 list-disc pl-20">
               {serviceList.map((item) => (
@@ -71,6 +71,7 @@ function Home() {
                 title={service.title}
                 description={service.description}
                 illustration={service.illustration}
+                className="reveal"
               />
             ))}
           </div>
@@ -79,22 +80,22 @@ function Home() {
           featured
           title={servicesCta.title}
           description={servicesCta.description}
-          className="mt-24 md:mt-40"
+          className="reveal mt-24 md:mt-40"
         />
       </section>
 
-      <section id="objects" className="relative mt-60 md:mt-100 px-10 md:px-20 lg:px-40 scroll-mt-[var(--header-height)]">
+      <section id="objects" className="relative mt-60 md:mt-100 px-16 md:px-20 lg:px-40 scroll-mt-[var(--header-height)]">
         <hr className="p-0 m-0 b-0 h-0 border-t border-black absolute left-10 right-10 md:left-20 md:right-20 lg:left-40 lg:right-40 transition-all origin-center" />
-        <div className="pt-15 flex flex-col">
+        <div className="reveal pt-15 flex flex-col">
           <h2 className="text-4xl sm:text-5xl mb-20 sm:mb-30 transition-all">
             Реализованные объекты
           </h2>
           <div className="flex flex-col md:flex-row gap-20 items-start justify-between mb-48 sm:mb-67">
             <p className="text-xl-wide max-w-[935px]">
-              Мы выполнили десятки проектов по алмазному сверлению, резке проёмов и демонтажу сложных конструкций — от жилых домов до промышленных объектов.
+              Мы выполнили десятки проектов по алмазному сверлению, резке проёмов и демонтажу сложных конструкций, от жилых домов до промышленных объектов.
             </p>
             <Link
-              className="flex items-center gap-5 border no-underline cursor-pointer bg-black border-black text-white rounded-md hover:border-notification hover:bg-notification hover:text-black px-12 py-4 min-h-34"
+              className="flex items-center gap-5 border no-underline cursor-pointer bg-menu border-menu text-black rounded-md hover:border-notification hover:bg-notification hover:text-white px-12 py-4 min-h-34"
               to="/objects"
             >
               Все объекты
@@ -111,6 +112,7 @@ function Home() {
                 span="md:col-span-2"
                 slides={slides}
                 to={`/objects/${object.slug}`}
+                className="reveal"
               />
             )
           })}

@@ -68,7 +68,7 @@ export function toObjectCard(object: ObjectEntry): { title: string; meta: string
   const meta = [object.info.clientName, object.info.year ? String(object.info.year) : ''].filter(Boolean).join(' · ')
   const slides: ObjectSlide[] =
     object.photos.length > 0
-      ? object.photos.map((photo, i) => ({ ...photo, alt: `${title} — фото ${i + 1}` }))
+      ? object.photos.map((photo, i) => ({ ...photo, alt: `${title}, фото ${i + 1}` }))
       : [{ color: '#e3e3e3', label: 'Фото скоро' }]
   return { title, meta, slides }
 }

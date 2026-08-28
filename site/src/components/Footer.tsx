@@ -8,12 +8,12 @@ const siteLinks = [
 
 function Footer() {
   return (
-    <footer className="bg-submenu px-10 md:px-20 pt-20 mt-60 md:mt-100 text-black">
+    <footer className="bg-submenu px-16 md:px-20 pt-20 mt-60 md:mt-100 text-black">
       <div className="flex flex-row items-center justify-between gap-10 pb-20">
         <span className="text-3xl">Юни-С</span>
         <a
           href="tel:+79650808808"
-          className="flex items-center gap-5 border no-underline cursor-pointer rounded-md bg-black border-black text-white hover:bg-notification hover:border-notification hover:text-black px-12 py-4 min-h-34"
+          className="flex items-center gap-5 border no-underline cursor-pointer rounded-md bg-menu border-menu text-black hover:bg-notification hover:border-notification hover:text-white px-12 py-4 min-h-34"
         >
           Позвонить директору
         </a>
@@ -63,7 +63,7 @@ function Footer() {
 
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-10 py-20 text-xs-wide text-pigeon">
         <p>
-          © 2014–2026 Uni-S. Все права защищены,{' '}
+          © 2014-2026 Uni-S. Все права защищены,{' '}
           <a href="#" className="underline hover:text-black">
             Политика конфиденциальности
           </a>

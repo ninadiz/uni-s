@@ -10,7 +10,7 @@ export type PageMeta = {
 }
 
 export const defaultMeta: PageMeta = {
-  title: 'Юни-С — алмазная резка и демонтаж в Санкт-Петербурге',
+  title: 'Юни-С. Алмазная резка и демонтаж в Санкт-Петербурге',
   description:
     'Алмазное сверление, резка проёмов и демонтаж сложных конструкций в Санкт-Петербурге и Ленинградской области. Аренда стенорезного оборудования с оператором.',
   path: '/',
@@ -19,15 +19,15 @@ export const defaultMeta: PageMeta = {
 export const pageMeta: Record<string, PageMeta> = {
   '/': defaultMeta,
   '/services': {
-    title: 'Услуги — алмазная резка, бурение, демонтаж | Юни-С',
+    title: 'Услуги: алмазная резка, бурение, демонтаж | Юни-С',
     description:
       'Алмазная резка стенорезными машинами, бурение отверстий, демонтаж бетонных конструкций и аренда оборудования с оператором.',
     path: '/services',
   },
   '/objects': {
-    title: 'Реализованные объекты — Юни-С',
+    title: 'Реализованные объекты | Юни-С',
     description:
-      'Примеры выполненных проектов по алмазному сверлению, резке проёмов и демонтажу — от жилых домов до промышленных объектов.',
+      'Примеры выполненных проектов по алмазному сверлению, резке проёмов и демонтажу: от жилых домов до промышленных объектов.',
     path: '/objects',
   },
   '/prices': {
@@ -36,7 +36,7 @@ export const pageMeta: Record<string, PageMeta> = {
     path: '/prices',
   },
   '/ui-kit': {
-    title: 'UI-kit — Юни-С',
+    title: 'UI-kit | Юни-С',
     description: 'Служебная страница дизайн-системы сайта.',
     path: '/ui-kit',
     noindex: true,
@@ -44,7 +44,7 @@ export const pageMeta: Record<string, PageMeta> = {
 }
 
 export const notFoundMeta: PageMeta = {
-  title: 'Страница не найдена — Юни-С',
+  title: 'Страница не найдена | Юни-С',
   description: 'Запрашиваемая страница не найдена.',
   path: '/404',
   noindex: true,
@@ -56,8 +56,8 @@ export function getObjectMeta(slug: string): PageMeta | undefined {
 
   const title = object.info.header || object.info.objectName || object.info.clientName || slug
   return {
-    title: `${title} — Юни-С`,
-    description: `${object.info.description} — проект Юни-С, ${object.info.year} год.`,
+    title: `${title} | Юни-С`,
+    description: `${object.info.description.replace(/\.$/, '')}. Проект Юни-С, ${object.info.year} год.`,
     path: `/objects/${slug}`,
   }
 }
