@@ -53,7 +53,7 @@ function LogoSlot({ logo }: { logo: LogoEntry }) {
         alt={logo.alt}
         loading="lazy"
         decoding="async"
-        className="max-h-100 w-auto max-w-full object-contain"
+        className="max-h-70 sm:max-h-100 w-auto max-w-full object-contain"
       />
     </div>
   )
