@@ -61,7 +61,7 @@ function ObjectCarouselCard({ title, span, slides, meta, to, className = '' }: O
           <h3 className="text-2xl-7-wide sm:text-3xl">{to ? <Link to={to}>{title}</Link> : title}</h3>
           {meta && <div className="text-xs-wide text-pigeon mt-4">{meta}</div>}
         </div>
-        <div className="embla__controls tabular-nums shrink-0 h-40 md:h-37 rounded-base bg-black text-white flex items-center text-base-wide gap-5 relative px-32 md:px-10 transition-all md:group-hover:px-32">
+        <div className="embla__controls tabular-nums shrink-0 h-40 md:h-37 rounded-base bg-menu text-black flex items-center text-base-wide gap-5 relative px-32 md:px-10 transition-all md:group-hover:px-32">
           <button
             type="button"
             onClick={prev}

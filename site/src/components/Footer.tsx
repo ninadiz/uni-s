@@ -13,7 +13,7 @@ function Footer() {
         <span className="text-3xl">Юни-С</span>
         <a
           href="tel:+79650808808"
-          className="flex items-center gap-5 border no-underline cursor-pointer rounded-md bg-black border-black text-white hover:bg-notification hover:border-notification hover:text-white px-12 py-4 min-h-34"
+          className="flex items-center gap-5 border no-underline cursor-pointer rounded-md bg-menu border-menu text-black hover:bg-notification hover:border-notification hover:text-white px-12 py-4 min-h-34"
         >
           Позвонить директору
         </a>
