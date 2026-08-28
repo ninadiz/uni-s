@@ -44,13 +44,18 @@ function ScrollReveal() {
       pending.push(el)
     }
 
-    // Safety net: if the observer never reports (unusual embedding, throttled
-    // background tab that never scrolls), make sure the content still appears.
+    // Safety net for a broken observer (unusual embedding, zero-size root):
+    // if an element is on screen yet still pending after a moment, the observer
+    // clearly is not firing, so reveal everything. If pending elements are just
+    // still below the fold, this does nothing and the reveal works on scroll.
     const failsafe = window.setTimeout(() => {
-      for (const el of pending) {
-        if (el.getAttribute('data-reveal') === 'pending') reveal(el)
-      }
-    }, 2000)
+      const observerIsBroken = pending.some(
+        (el) =>
+          el.getAttribute('data-reveal') === 'pending' &&
+          el.getBoundingClientRect().top < window.innerHeight,
+      )
+      if (observerIsBroken) pending.forEach(reveal)
+    }, 1500)
 
     return () => {
       observer.disconnect()
