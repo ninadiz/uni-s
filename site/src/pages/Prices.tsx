@@ -16,7 +16,7 @@ const calcUnits = [
 function Prices() {
   return (
     <>
-      <section className="bg-menu px-10 md:px-24 pt-24 md:pt-64 pb-24 flex flex-col md:flex-row md:items-end md:justify-between gap-20">
+      <section className="bg-menu px-16 md:px-24 pt-24 md:pt-64 pb-24 flex flex-col md:flex-row md:items-end md:justify-between gap-20">
         <h1 className="text-4xl">Цены</h1>
         <p className="text-xl-wide max-w-[600px]">
           Стоимость каждого проекта рассчитывается индивидуально. Ниже описано, что влияет на цену и в каких единицах
@@ -24,7 +24,7 @@ function Prices() {
         </p>
       </section>
 
-      <section className="mt-60 md:mt-100 mb-100 px-10 md:px-20 lg:px-40 flex flex-col gap-40 md:gap-60">
+      <section className="mt-60 md:mt-100 mb-100 px-16 md:px-20 lg:px-40 flex flex-col gap-40 md:gap-60">
         <div className="reveal flex flex-col gap-20 sm:gap-32">
           <h2 className="text-4xl sm:text-5xl">От чего зависит стоимость</h2>
           <ul className="text-xl-wide flex flex-col gap-8 list-disc pl-20 max-w-[935px]">

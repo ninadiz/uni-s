@@ -14,7 +14,7 @@ const navLinkActiveClasses = 'bg-black text-white border-black rounded-2xl point
 const submenuLinkClasses =
   'flex items-center justify-center no-underline whitespace-nowrap border rounded-md pb-1 h-40 md:h-34 px-12 font-light transition-all duration-300 ease-in-out hover:bg-notification hover:border-notification'
 const submenuLinkActiveClasses = 'bg-black text-white border-black pointer-events-none'
-const submenuListClasses = 'flex-nowrap items-center gap-5 w-full sm:w-auto overflow-x-auto pl-10 md:pl-20 pr-10 md:pr-20'
+const submenuListClasses = 'flex-nowrap items-center gap-5 w-full sm:w-auto overflow-x-auto pl-16 md:pl-20 pr-16 md:pr-20'
 
 const iconButtonClasses =
   'flex md:hidden items-center justify-center h-40 w-40 shrink-0 border rounded-md transition-all duration-300 ease-in-out hover:bg-notification hover:border-notification'
@@ -71,7 +71,7 @@ function Header() {
       ref={headerRef}
       className="w-full z-40 sticky top-0 left-0 bg-menu pt-15 md:pt-13 pb-12 md:pb-24 overflow-visible md:overflow-hidden transition-all"
     >
-      <div className="inner relative px-10 md:px-20 mx-auto w-full max-w-[5120px]">
+      <div className="inner relative px-16 md:px-20 mx-auto w-full max-w-[5120px]">
         <nav className="flex justify-between items-start gap-10">
           <ul
             className={`headerNavigation flex flex-wrap sm:flex-nowrap gap-5 grow ${
@@ -146,7 +146,7 @@ function Header() {
 
       {menuOpen && (
         <div className="md:hidden fixed inset-0 z-50 bg-menu flex flex-col overflow-y-auto">
-          <div className="flex justify-between items-center gap-10 px-10 pt-15 pb-12">
+          <div className="flex justify-between items-center gap-10 px-16 pt-15 pb-12">
             <Link to="/" className={`${navLinkClasses} ${isActive('/') ? navLinkActiveClasses : ''}`} {...activeLinkProps(isActive('/'))}>
               Юни-С
             </Link>
@@ -162,7 +162,7 @@ function Header() {
             </button>
           </div>
 
-          <nav className="flex flex-col gap-8 px-10 mt-10">
+          <nav className="flex flex-col gap-8 px-16 mt-10">
             {navItems.map((item) => (
               <Link
                 key={item.to}
@@ -175,7 +175,7 @@ function Header() {
             ))}
           </nav>
 
-          <div className="flex flex-col gap-8 px-10 mt-30">
+          <div className="flex flex-col gap-8 px-16 mt-30">
             <span className="text-xs-wide uppercase tracking-wider text-pigeon px-16">Сервис HILTI</span>
             <a
               href="https://service.unis-tech.ru"

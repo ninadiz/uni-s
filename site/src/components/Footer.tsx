@@ -8,7 +8,7 @@ const siteLinks = [
 
 function Footer() {
   return (
-    <footer className="bg-submenu px-10 md:px-20 pt-20 mt-60 md:mt-100 text-black">
+    <footer className="bg-submenu px-16 md:px-20 pt-20 mt-60 md:mt-100 text-black">
       <div className="flex flex-row items-center justify-between gap-10 pb-20">
         <span className="text-3xl">Юни-С</span>
         <a

@@ -14,7 +14,7 @@ function ObjectDetail() {
 
   return (
     <>
-      <section className="bg-menu px-10 md:px-24 pt-24 md:pt-64 pb-24 flex flex-col gap-15">
+      <section className="bg-menu px-16 md:px-24 pt-24 md:pt-64 pb-24 flex flex-col gap-15">
         <Link to="/objects" className="text-base-wide underline w-fit">
           ← Все объекты
         </Link>
@@ -24,7 +24,7 @@ function ObjectDetail() {
       </section>
 
       {photos.length > 0 && (
-        <section className="mt-60 md:mt-100 mb-100 px-10 md:px-20 lg:px-40">
+        <section className="mt-60 md:mt-100 mb-100 px-16 md:px-20 lg:px-40">
           <div className="grid grid-cols-2 md:grid-cols-3 gap-x-15 gap-y-25">
             {photos.map((photo, i) => (
               <img

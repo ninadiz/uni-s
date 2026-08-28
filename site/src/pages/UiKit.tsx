@@ -133,7 +133,7 @@ const colors = [
 
 function UiKit() {
   return (
-    <div className="px-10 md:px-20 py-40 max-w-[1200px] mx-auto">
+    <div className="px-16 md:px-20 py-40 max-w-[1200px] mx-auto">
       <h1 className="text-3xl mb-20">UI-kit</h1>
 
       <section className="mb-60 border border-black rounded-md p-20">
