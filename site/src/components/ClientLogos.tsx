@@ -16,8 +16,8 @@ const logos: LogoEntry[] = [
 
 function LogoSlot({ logo }: { logo: LogoEntry }) {
   return (
-    <div className="flex items-center justify-center h-100">
-      <img src={logo.src} alt={logo.alt} className="h-100 w-auto max-w-full" />
+    <div className="flex items-center justify-center h-64 sm:h-100">
+      <img src={logo.src} alt={logo.alt} className="max-h-full h-64 sm:h-100 w-auto max-w-full" />
     </div>
   )
 }
@@ -43,12 +43,12 @@ type ClientLogosProps = {
 
 function ClientLogos({ className = '' }: ClientLogosProps) {
   return (
-    <div className={`relative h-160 flex flex-col items-center justify-center gap-24 ${className}`}>
+    <div className={`relative min-h-160 sm:h-160 flex flex-col items-center justify-center gap-24 py-24 sm:py-0 ${className}`}>
       <CornerBracket position="top-left" />
       <CornerBracket position="top-right" />
       <CornerBracket position="bottom-left" />
       <CornerBracket position="bottom-right" />
-      <div className="grid grid-cols-1 sm:grid-cols-5 gap-15 w-full">
+      <div className="grid grid-cols-2 sm:grid-cols-5 gap-15 w-full">
         {logos.map((logo, i) => (
           <LogoSlot key={i} logo={logo} />
         ))}

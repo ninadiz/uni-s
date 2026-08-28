@@ -36,15 +36,15 @@ const featuredObjects = getFeaturedObjects()
 function Home() {
   return (
     <>
-      <section className="h-[calc(100vh-var(--header-height,150px))] flex flex-col">
-        <div className="flex-1 bg-menu px-10 md:px-24 pb-24 flex flex-col md:flex-row md:items-end md:justify-between gap-20">
-          <h1 className="max-w-full md:max-w-[62%] w-[935px] text-3xl sm:text-5xl">
+      <section className="flex flex-col md:h-[calc(100vh-var(--header-height,150px))]">
+        <div className="flex-1 bg-menu px-10 md:px-24 pt-20 pb-24 md:pt-0 flex flex-col md:flex-row md:items-end md:justify-between gap-20">
+          <h1 className="max-w-full md:max-w-[62%] md:w-[935px] text-3xl sm:text-5xl">
             Алмазное сверление, резка проёмов и демонтаж сложных конструкций
             <span className="block text-black/50">в Санкт-Петербурге и ЛО</span>
           </h1>
         </div>
 
-        <div className="my-64 px-10 md:px-20 lg:px-40">
+        <div className="my-32 md:my-64 px-10 md:px-20 lg:px-40">
           <ClientLogos />
         </div>
       </section>
