@@ -8,22 +8,22 @@ const navItems = [
 ]
 
 const navLinkClasses =
-  'flex items-center justify-center no-underline whitespace-nowrap border rounded-md pb-1 h-40 md:h-34 lg:h-59 px-12 lg:px-20 text-base-wide lg:text-3xl font-light transition-all duration-300 ease-in-out hover:bg-notification hover:border-notification hover:rounded-2xl'
+  'flex items-center justify-center no-underline whitespace-nowrap border rounded-md pb-1 h-40 md:h-34 lg:h-59 px-12 lg:px-20 text-base-wide lg:text-3xl font-light transition-all duration-300 ease-in-out hover:bg-notification hover:border-notification hover:text-white hover:rounded-2xl'
 const navLinkActiveClasses = 'bg-black text-white border-black rounded-2xl pointer-events-none'
 
 const submenuLinkClasses =
-  'flex items-center justify-center no-underline whitespace-nowrap border rounded-md pb-1 h-40 md:h-34 px-12 font-light transition-all duration-300 ease-in-out hover:bg-notification hover:border-notification'
+  'flex items-center justify-center no-underline whitespace-nowrap border rounded-md pb-1 h-40 md:h-34 px-12 font-light transition-all duration-300 ease-in-out hover:bg-notification hover:border-notification hover:text-white'
 const submenuLinkActiveClasses = 'bg-black text-white border-black pointer-events-none'
 const submenuListClasses = 'flex-nowrap items-center gap-5 w-full sm:w-auto overflow-x-auto pl-16 md:pl-20 pr-16 md:pr-20'
 
 const iconButtonClasses =
-  'flex md:hidden items-center justify-center h-40 w-40 shrink-0 border rounded-md transition-all duration-300 ease-in-out hover:bg-notification hover:border-notification'
+  'flex md:hidden items-center justify-center h-40 w-40 shrink-0 border rounded-md transition-all duration-300 ease-in-out hover:bg-notification hover:border-notification hover:text-white'
 
 const mobileNavLinkClasses =
-  'flex items-center justify-between no-underline border rounded-md px-16 h-56 text-3xl font-light transition-colors hover:bg-notification hover:border-notification'
+  'flex items-center justify-between no-underline border rounded-md px-16 h-56 text-3xl font-light transition-colors hover:bg-notification hover:border-notification hover:text-white'
 const mobileNavLinkActiveClasses = 'bg-black text-white border-black pointer-events-none'
 const mobileSubLinkClasses =
-  'flex items-center no-underline border rounded-md px-16 h-44 text-base-wide font-light transition-colors hover:bg-notification hover:border-notification'
+  'flex items-center no-underline border rounded-md px-16 h-44 text-base-wide font-light transition-colors hover:bg-notification hover:border-notification hover:text-white'
 
 function activeLinkProps(active: boolean) {
   return active ? { 'aria-current': 'page' as const, 'aria-disabled': true, tabIndex: -1 } : {}
@@ -98,7 +98,7 @@ function Header() {
           <div className="headerToolbar flex items-center gap-8 md:gap-12 shrink-0">
             <a
               href="tel:+79650808808"
-              className="flex items-center gap-5 border no-underline cursor-pointer rounded-md bg-shop border-shop text-black hover:bg-notification hover:border-notification px-12 h-40 md:h-34"
+              className="flex items-center gap-5 border no-underline cursor-pointer rounded-md bg-shop border-shop text-white hover:bg-notification hover:border-notification px-12 h-40 md:h-34"
             >
               <span className="md:hidden">Позвонить</span>
               <span className="hidden md:inline">Позвонить директору</span>
@@ -154,7 +154,7 @@ function Header() {
               type="button"
               aria-label="Закрыть меню"
               onClick={() => setMenuOpen(false)}
-              className="flex items-center justify-center h-40 w-40 shrink-0 border rounded-md transition-colors hover:bg-notification hover:border-notification"
+              className="flex items-center justify-center h-40 w-40 shrink-0 border rounded-md transition-colors hover:bg-notification hover:border-notification hover:text-white"
             >
               <svg width="20" height="20" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5" fill="none" aria-hidden="true">
                 <path d="M6 6l12 12M18 6L6 18" />
@@ -197,7 +197,7 @@ function Header() {
 
           <a
             href="tel:+79650808808"
-            className="flex items-center justify-center gap-5 border no-underline rounded-md bg-shop border-shop text-black hover:bg-notification hover:border-notification mt-auto m-10 px-12 h-56"
+            className="flex items-center justify-center gap-5 border no-underline rounded-md bg-shop border-shop text-white hover:bg-notification hover:border-notification mt-auto m-10 px-12 h-56"
           >
             Позвонить директору
           </a>

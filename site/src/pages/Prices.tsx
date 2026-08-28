@@ -53,7 +53,7 @@ function Prices() {
           </p>
           <a
             href="tel:+79650808808"
-            className="flex w-fit items-center gap-5 border no-underline cursor-pointer rounded-md bg-black border-black text-white hover:bg-notification hover:border-notification hover:text-black px-12 py-4 min-h-34"
+            className="flex w-fit items-center gap-5 border no-underline cursor-pointer rounded-md bg-black border-black text-white hover:bg-notification hover:border-notification hover:text-white px-12 py-4 min-h-34"
           >
             Позвонить директору
           </a>

@@ -95,7 +95,7 @@ function Home() {
               Мы выполнили десятки проектов по алмазному сверлению, резке проёмов и демонтажу сложных конструкций, от жилых домов до промышленных объектов.
             </p>
             <Link
-              className="flex items-center gap-5 border no-underline cursor-pointer bg-black border-black text-white rounded-md hover:border-notification hover:bg-notification hover:text-black px-12 py-4 min-h-34"
+              className="flex items-center gap-5 border no-underline cursor-pointer bg-black border-black text-white rounded-md hover:border-notification hover:bg-notification hover:text-white px-12 py-4 min-h-34"
               to="/objects"
             >
               Все объекты

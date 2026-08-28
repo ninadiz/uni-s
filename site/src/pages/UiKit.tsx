@@ -123,10 +123,10 @@ const colors = [
   { name: 'color-black', className: 'bg-black', hex: '#000' },
   { name: 'color-white', className: 'bg-white', hex: '#fff' },
   { name: 'color-menu', className: 'bg-menu', hex: '#c9cac9' },
-  { name: 'color-notification', className: 'bg-notification', hex: '#ffff3c' },
+  { name: 'color-notification', className: 'bg-notification', hex: '#c1121c' },
   { name: 'color-pigeon', className: 'bg-pigeon', hex: '#76756f' },
   { name: 'color-submenu', className: 'bg-submenu', hex: '#e3e3e3' },
-  { name: 'color-shop', className: 'bg-shop', hex: '#beffbd' },
+  { name: 'color-shop', className: 'bg-shop', hex: '#c1121c' },
   { name: 'color-menthol', className: 'bg-menthol', hex: '#b8fbff' },
   { name: 'color-paper', className: 'bg-paper', hex: '#f2f0e6' },
 ]
