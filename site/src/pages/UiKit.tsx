@@ -11,14 +11,15 @@ const textStyles = [
   { name: 'text-5xl', size: '3rem', lineHeight: 'leading-none: 1 (48px)', tracking: 'normal (0em)' },
 ]
 
-// Брейкпоинты Tailwind (дефолтные, не переопределены в теме): sm=640px lg=1024px.
-// md/xl/2xl нигде в коде не используются для типографики, поэтому в таблице их нет.
-// classes: реальная запись из кода (для документации), render: те же классы без sm:/lg:
+// На сайте используется ровно три брейкпоинта: base (<768px), md (768–1023px),
+// lg (1024px+). Tailwind-овские sm/xl/2xl отключены в теме. Всё, что было на sm,
+// теперь начинается с md — поведение до 768px совпадает с base.
+// classes: реальная запись из кода (для документации), render: те же классы без md:/lg:
 // префикса, чтобы можно было отрисовать живой образец текста независимо от ширины окна.
 // Отсутствие ключа у брейкпоинта = нет своего класса, значение наследуется с предыдущей колонки.
 const SAMPLE_TEXT = 'Алмазное сверление, резка проёмов и демонтаж сложных конструкций'
 
-type BreakpointKey = 'default' | 'sm' | 'lg'
+type BreakpointKey = 'default' | 'md' | 'lg'
 
 type BreakpointStyle = { classes: string; render: string }
 
@@ -49,14 +50,14 @@ const usageAudit: UsageAuditRow[] = [
       default: { classes: 'text-base-wide font-light', render: 'text-base-wide font-light' },
       lg: { classes: 'lg:text-3xl', render: 'text-3xl font-light' },
     },
-    note: 'Единственное место на сайте, где переключение размера происходит на lg, а не на sm: от 640 до 1023px пункты меню ещё маленькие.',
+    note: 'Единственное место на сайте, где переключение размера происходит на lg, а не на md: от 768 до 1023px пункты меню ещё маленькие.',
   },
   {
     group: 'H1',
     element: 'Заголовок хиро-блока (главная)',
     bp: {
       default: { classes: 'text-3xl', render: 'text-3xl' },
-      sm: { classes: 'sm:text-5xl', render: 'text-5xl' },
+      md: { classes: 'md:text-5xl', render: 'text-5xl' },
     },
   },
   {
@@ -64,15 +65,15 @@ const usageAudit: UsageAuditRow[] = [
     element: '«Услуги», «Реализованные объекты»',
     bp: {
       default: { classes: 'text-4xl', render: 'text-4xl' },
-      sm: { classes: 'sm:text-5xl', render: 'text-5xl' },
+      md: { classes: 'md:text-5xl', render: 'text-5xl' },
     },
   },
   {
     group: 'H3',
     element: 'Заголовок карточки услуги',
     bp: {
-      default: { classes: 'text-sm-wide', render: 'text-sm-wide' },
-      sm: { classes: 'sm:text-2xl-7-wide', render: 'text-2xl-7-wide' },
+      default: { classes: 'text-lg-wide', render: 'text-lg-wide' },
+      md: { classes: 'md:text-2xl-7-wide', render: 'text-2xl-7-wide' },
     },
   },
   {
@@ -80,7 +81,7 @@ const usageAudit: UsageAuditRow[] = [
     element: 'Заголовок карточки объекта',
     bp: {
       default: { classes: 'text-2xl-7-wide', render: 'text-2xl-7-wide' },
-      sm: { classes: 'sm:text-3xl', render: 'text-3xl' },
+      md: { classes: 'md:text-3xl', render: 'text-3xl' },
     },
   },
   {
@@ -114,9 +115,9 @@ const usageAudit: UsageAuditRow[] = [
 ]
 
 const breakpointColumns: { key: BreakpointKey; label: string; hint: string }[] = [
-  { key: 'default', label: 'Default', hint: '0px' },
-  { key: 'sm', label: 'sm', hint: '>640px' },
-  { key: 'lg', label: 'lg', hint: '>1024px' },
+  { key: 'default', label: 'base', hint: '<768px' },
+  { key: 'md', label: 'md', hint: '≥768px' },
+  { key: 'lg', label: 'lg', hint: '≥1024px' },
 ]
 
 const colors = [
@@ -220,7 +221,7 @@ function UiKit() {
 
       <section className="mb-60">
         <h2 className="text-2xl mb-20">Цвета</h2>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-20">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-20">
           {colors.map((color) => (
             <div key={color.name} className="flex flex-col gap-8">
               <div className={`${color.className} h-80 rounded-md border border-black`} />

@@ -21,7 +21,7 @@ function Footer() {
 
       <hr className="p-0 m-0 h-0 border-t border-black" />
 
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-20 py-30 sm:py-40">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-20 py-30 md:py-40">
         <div className="flex flex-col gap-10">
           <span className="text-xs-wide uppercase tracking-wider text-pigeon">Сайт</span>
           <nav className="flex flex-col gap-8">
@@ -61,7 +61,7 @@ function Footer() {
 
       <hr className="p-0 m-0 h-0 border-t border-black" />
 
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-10 py-20 text-xs-wide text-pigeon">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-10 py-20 text-xs-wide text-pigeon">
         <p>
           © 2014-2026 Uni-S. Все права защищены,{' '}
           <a href="#" className="underline hover:text-black">

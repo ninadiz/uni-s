@@ -4,6 +4,13 @@
 @theme {
   --font-sans: "Inter Tight Variable", "Helvetica", "Arial", sans-serif;
 
+  /* The site uses exactly three breakpoints: base (<768px), md (768–1023px)
+     and lg (1024px+). Tailwind's sm / xl / 2xl are removed so `sm:` etc. don't
+     compile — everything below md is styled on the unprefixed base. */
+  --breakpoint-sm: initial;
+  --breakpoint-xl: initial;
+  --breakpoint-2xl: initial;
+
   --color-black: #000;
   --color-white: #fff;
   --color-menu: #c9cac9;
@@ -126,44 +133,39 @@ body {
 }
 
 /* Client logo marquee. The logo list is rendered twice inside the track so a
-   translateX(-50%) loop is seamless. Slot width is set in container-query units
-   so ~5 logos sit in view on desktop, ~3 on tablet, ~2 on mobile, regardless
-   of the section's own padding. Reduced motion: no auto-scroll, the second copy
-   is hidden and the strip becomes a normal horizontal scroller. */
-.logo-marquee {
-  container-type: inline-size;
-}
+   translateX(-50%) loop is seamless. Slots hug their logo and carry a fixed
+   gap, so widening the screen just brings more logos into view rather than
+   spreading them out. Reduced motion: no auto-scroll, the second copy is hidden
+   and the strip becomes a normal horizontal scroller. */
 
-/* Edge fades: the strip lives on the white body background, so two 120px
-   white-to-transparent gradients over the left/right edges let logos dissolve
-   in and out instead of being clipped by `overflow: hidden`. Uses
-   `rgb(255 255 255 / 0)` rather than `transparent` so the fade never tints
-   toward grey/black mid-gradient. */
-.logo-marquee::before,
-.logo-marquee::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 120px;
-  z-index: 2;
-  pointer-events: none;
-}
-
-.logo-marquee::before {
-  left: 0;
-  background: linear-gradient(to right, var(--color-white), rgb(255 255 255 / 0));
-}
-
-.logo-marquee::after {
-  right: 0;
-  background: linear-gradient(to left, var(--color-white), rgb(255 255 255 / 0));
+/* Edge fades run straight to the browser edges. A mask on the viewport takes
+   the logos from transparent to opaque over the outer 120px on each side, so
+   they dissolve into whatever sits behind the strip instead of being
+   hard-clipped by `overflow: hidden`. */
+.logo-marquee__viewport {
+  --logo-marquee-fade: 120px;
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 var(--logo-marquee-fade),
+    #000 calc(100% - var(--logo-marquee-fade)),
+    transparent
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 var(--logo-marquee-fade),
+    #000 calc(100% - var(--logo-marquee-fade)),
+    transparent
+  );
 }
 
 .logo-marquee__track {
   display: flex;
   width: max-content;
-  animation: logo-marquee 45s linear infinite;
+  /* Duration scales with the repeat count so pixels-per-second — the visible
+     scroll speed — stays the same no matter how many cycles the track holds. */
+  animation: logo-marquee calc(45s * var(--logo-marquee-repeat, 3)) linear infinite;
 }
 
 .logo-marquee:hover .logo-marquee__track,
@@ -172,19 +174,7 @@ body {
 }
 
 .logo-marquee__slot {
-  flex: 0 0 40cqw;
-}
-
-@container (min-width: 640px) {
-  .logo-marquee__slot {
-    flex-basis: 30cqw;
-  }
-}
-
-@container (min-width: 960px) {
-  .logo-marquee__slot {
-    flex-basis: 20cqw;
-  }
+  flex: 0 0 auto;
 }
 
 @keyframes logo-marquee {
@@ -194,7 +184,7 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .logo-marquee {
+  .logo-marquee__viewport {
     overflow-x: auto;
   }
 
@@ -202,7 +192,7 @@ body {
     animation: none;
   }
 
-  .logo-marquee__group[aria-hidden="true"] {
+  .logo-marquee__cycle[aria-hidden="true"] {
     display: none;
   }
 }

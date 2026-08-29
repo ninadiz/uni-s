@@ -52,38 +52,36 @@ function ObjectCarouselCard({ title, span, slides, meta, to, className = '' }: O
               ) : (
                 slideContent
               )}
+              <div className="embla__controls tabular-nums absolute bottom-10 left-1/2 -translate-x-1/2 z-10 h-40 md:h-37 rounded-base bg-menu text-black flex items-center justify-center text-base-wide gap-5 px-32 md:px-10 transition-all md:group-hover:px-32">
+                <button
+                  type="button"
+                  onClick={prev}
+                  className="embla__button embla__button--prev flex grow-0 shrink-0 items-center justify-start absolute overflow-hidden left-0 top-0 bottom-0 cursor-pointer disabled:cursor-not-allowed disabled:opacity-40 w-1/2 pl-10 md:scale-x-0 md:group-hover:scale-x-100"
+                >
+                  <svg width="18" height="18" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.3333333333333333" fill="none" xmlns="http://www.w3.org/2000/svg" className="icon icon-arrowLeft">
+                    <path d="M21 12L3 12"></path>
+                    <path d="M11 4L3 12L11 20"></path>
+                  </svg>
+                </button>
+                <div>{index + 1}/{total}</div>
+                <button
+                  type="button"
+                  onClick={next}
+                  className="embla__button embla__button--next flex grow-0 shrink-0 items-center justify-end absolute overflow-hidden right-0 top-0 bottom-0 cursor-pointer disabled:cursor-not-allowed disabled:opacity-40 w-1/2 pr-10 md:scale-x-0 md:group-hover:scale-x-100"
+                >
+                  <svg width="18" height="18" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.3333333333333333" fill="none" xmlns="http://www.w3.org/2000/svg" className="icon icon-arrowRight">
+                    <path d="M3 12L21 12"></path>
+                    <path d="M13 20L21 12L13 4"></path>
+                  </svg>
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <div className="flex justify-between md:justify-start items-center gap-15">
-        <div>
-          <h3 className="text-2xl-7-wide sm:text-3xl">{to ? <Link to={to}>{title}</Link> : title}</h3>
-          {meta && <div className="text-xs-wide text-pigeon mt-4">{meta}</div>}
-        </div>
-        <div className="embla__controls tabular-nums shrink-0 h-40 md:h-37 rounded-base bg-menu text-black flex items-center text-base-wide gap-5 relative px-32 md:px-10 transition-all md:group-hover:px-32">
-          <button
-            type="button"
-            onClick={prev}
-            className="embla__button embla__button--prev flex grow-0 shrink-0 items-center justify-start absolute overflow-hidden left-0 top-0 bottom-0 cursor-pointer disabled:cursor-not-allowed disabled:opacity-40 w-1/2 pl-10 md:scale-x-0 md:group-hover:scale-x-100"
-          >
-            <svg width="18" height="18" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.3333333333333333" fill="none" xmlns="http://www.w3.org/2000/svg" className="icon icon-arrowLeft">
-              <path d="M21 12L3 12"></path>
-              <path d="M11 4L3 12L11 20"></path>
-            </svg>
-          </button>
-          <div>{index + 1}/{total}</div>
-          <button
-            type="button"
-            onClick={next}
-            className="embla__button embla__button--next flex grow-0 shrink-0 items-center justify-end absolute overflow-hidden right-0 top-0 bottom-0 cursor-pointer disabled:cursor-not-allowed disabled:opacity-40 w-1/2 pr-10 md:scale-x-0 md:group-hover:scale-x-100"
-          >
-            <svg width="18" height="18" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.3333333333333333" fill="none" xmlns="http://www.w3.org/2000/svg" className="icon icon-arrowRight">
-              <path d="M3 12L21 12"></path>
-              <path d="M13 20L21 12L13 4"></path>
-            </svg>
-          </button>
-        </div>
+      <div>
+        <h3 className="text-2xl-7-wide md:text-3xl">{to ? <Link to={to}>{title}</Link> : title}</h3>
+        {meta && <div className="text-xs-wide text-pigeon mt-4">{meta}</div>}
       </div>
     </article>
   )

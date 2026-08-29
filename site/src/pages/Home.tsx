@@ -36,23 +36,23 @@ const featuredObjects = getFeaturedObjects()
 function Home() {
   return (
     <>
-      <section className="flex flex-col md:h-[calc(100vh-var(--header-height,150px))]">
-        <div className="flex-1 bg-menu px-16 md:px-24 pt-20 pb-24 md:pt-0 flex flex-col md:flex-row md:items-end md:justify-between gap-20">
-          <h1 className="max-w-full md:max-w-[62%] md:w-[935px] text-3xl sm:text-5xl">
+      <section className="flex flex-col min-h-[calc(100vh-var(--header-height,150px))]">
+        <div className="flex-1 bg-menu px-16 md:px-24 pt-20 pb-24 md:pt-0 flex flex-col justify-end md:flex-row md:items-end md:justify-between gap-20">
+          <h1 className="max-w-[900px] text-4xl md:text-5xl">
             Алмазное сверление, резка проёмов и демонтаж сложных конструкций
             <span className="block text-black/50">в Санкт-Петербурге и ЛО</span>
           </h1>
         </div>
 
-        <div className="my-32 md:my-64 px-16 md:px-20 lg:px-40">
+        <div className="my-20">
           <ClientLogos />
         </div>
       </section>
 
       <section id="services" className="mt-60 md:mt-100 px-16 md:px-20 lg:px-40 scroll-mt-[var(--header-height)]">
         <div className="pt-15 grid grid-cols-1 md:grid-cols-2 gap-15 md:gap-40 items-start">
-          <div className="reveal flex flex-col gap-20 sm:gap-32">
-            <h2 className="text-4xl sm:text-5xl transition-all">
+          <div className="reveal flex flex-col gap-20 md:gap-32">
+            <h2 className="text-4xl md:text-5xl transition-all">
               Услуги
             </h2>
             <p className="text-xl-wide">
@@ -64,7 +64,7 @@ function Home() {
               ))}
             </ul>
           </div>
-          <div className="flex flex-col gap-20 sm:gap-32 md:mt-80">
+          <div className="flex flex-col gap-20 md:gap-32 md:mt-80">
             {services.map((service) => (
               <ServiceCard
                 key={service.title}
@@ -87,10 +87,10 @@ function Home() {
       <section id="objects" className="relative mt-60 md:mt-100 px-16 md:px-20 lg:px-40 scroll-mt-[var(--header-height)]">
         <hr className="p-0 m-0 b-0 h-0 border-t border-black absolute left-10 right-10 md:left-20 md:right-20 lg:left-40 lg:right-40 transition-all origin-center" />
         <div className="reveal pt-15 flex flex-col">
-          <h2 className="text-4xl sm:text-5xl mb-20 sm:mb-30 transition-all">
+          <h2 className="text-4xl md:text-5xl mb-20 md:mb-30 transition-all">
             Реализованные объекты
           </h2>
-          <div className="flex flex-col md:flex-row gap-20 items-start justify-between mb-48 sm:mb-67">
+          <div className="flex flex-col md:flex-row gap-20 items-start justify-between mb-48 md:mb-67">
             <p className="text-xl-wide max-w-[935px]">
               Мы выполнили десятки проектов по алмазному сверлению, резке проёмов и демонтажу сложных конструкций, от жилых домов до промышленных объектов.
             </p>

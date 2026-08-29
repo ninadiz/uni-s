@@ -14,7 +14,7 @@ const navLinkActiveClasses = 'bg-black text-white border-black rounded-2xl point
 const submenuLinkClasses =
   'flex items-center justify-center no-underline whitespace-nowrap border rounded-md pb-1 h-40 md:h-34 px-12 font-light transition-all duration-300 ease-in-out hover:bg-notification hover:border-notification hover:text-white'
 const submenuLinkActiveClasses = 'bg-black text-white border-black pointer-events-none'
-const submenuListClasses = 'flex-nowrap items-center gap-5 w-full sm:w-auto overflow-x-auto pl-16 md:pl-20 pr-16 md:pr-20'
+const submenuListClasses = 'flex-nowrap items-center gap-5 w-full md:w-auto overflow-x-auto pl-16 md:pl-20 pr-16 md:pr-20'
 
 const iconButtonClasses =
   'flex md:hidden items-center justify-center h-40 w-40 shrink-0 border rounded-md transition-all duration-300 ease-in-out hover:bg-notification hover:border-notification hover:text-white'
@@ -74,7 +74,7 @@ function Header() {
       <div className="inner relative px-16 md:px-20 mx-auto w-full max-w-[5120px]">
         <nav className="flex justify-between items-start gap-10">
           <ul
-            className={`headerNavigation flex flex-wrap sm:flex-nowrap gap-5 grow ${
+            className={`headerNavigation flex flex-wrap md:flex-nowrap gap-5 grow ${
               isHomeSection ? 'pb-40 lg:pb-45' : ''
             }`}
           >
@@ -117,7 +117,7 @@ function Header() {
           </div>
         </nav>
 
-        <div className="submenus absolute left-0 top-42 lg:top-69 w-full sm:w-auto hidden md:block">
+        <div className="submenus absolute left-0 top-42 lg:top-69 w-full md:w-auto hidden md:block">
           <ul className={`${isHomeSection ? 'flex' : 'hidden'} ${submenuListClasses}`}>
             <li>
               <Link
