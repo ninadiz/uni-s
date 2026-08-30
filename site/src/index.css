@@ -92,6 +92,25 @@
   color-scheme: light;
 }
 
+/* Sticky header slide-away. Below md the header stays pinned at all times; from
+   md up it pins for the first 1.6 viewports of scrolling, then hides on
+   scroll-down and reappears on scroll-up (Header.tsx toggles data-hidden). */
+.siteHeader {
+  transition: transform 0.3s ease-in-out;
+}
+
+@media (min-width: 768px) {
+  .siteHeader[data-hidden="true"] {
+    transform: translateY(-100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .siteHeader {
+    transition: none;
+  }
+}
+
 html {
   font-size: 16px;
 }

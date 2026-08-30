@@ -8,22 +8,18 @@ const navItems = [
 ]
 
 const navLinkClasses =
-  'flex items-center justify-center no-underline whitespace-nowrap border rounded-md pb-1 h-40 md:h-34 lg:h-59 px-12 lg:px-20 text-base-wide lg:text-3xl font-light transition-all duration-300 ease-in-out hover:bg-notification hover:border-notification hover:text-white hover:rounded-2xl'
+  'flex items-center justify-center no-underline whitespace-nowrap border rounded-md pb-1 h-34 px-12 text-base-wide font-light transition-all duration-300 ease-in-out hover:bg-notification hover:border-notification hover:text-white hover:rounded-2xl'
+// lg blows the nav buttons up to full size; dropped once the header goes compact.
+const navLinkLgClasses = 'lg:h-59 lg:px-20 lg:text-3xl'
 const navLinkActiveClasses = 'bg-black text-white border-black rounded-2xl pointer-events-none'
 
 const submenuLinkClasses =
-  'flex items-center justify-center no-underline whitespace-nowrap border rounded-md pb-1 h-40 md:h-34 px-12 font-light transition-all duration-300 ease-in-out hover:bg-notification hover:border-notification hover:text-white'
+  'flex items-center justify-center no-underline whitespace-nowrap border rounded-md pb-1 h-34 px-12 font-light transition-all duration-300 ease-in-out hover:bg-notification hover:border-notification hover:text-white'
 const submenuLinkActiveClasses = 'bg-black text-white border-black pointer-events-none'
-const submenuListClasses = 'flex-nowrap items-center gap-5 w-full md:w-auto overflow-x-auto pl-16 md:pl-20 pr-16 md:pr-20'
+const submenuListClasses = 'flex-nowrap items-center gap-5 w-full md:w-auto overflow-x-auto pl-20 pr-20'
 
-const iconButtonClasses =
-  'flex md:hidden items-center justify-center h-40 w-40 shrink-0 border rounded-md transition-all duration-300 ease-in-out hover:bg-notification hover:border-notification hover:text-white'
-
-const mobileNavLinkClasses =
-  'flex items-center justify-between no-underline border rounded-md px-16 h-56 text-3xl font-light transition-colors hover:bg-notification hover:border-notification hover:text-white'
-const mobileNavLinkActiveClasses = 'bg-black text-white border-black pointer-events-none'
-const mobileSubLinkClasses =
-  'flex items-center no-underline border rounded-md px-16 h-44 text-base-wide font-light transition-colors hover:bg-notification hover:border-notification hover:text-white'
+const callButtonClasses =
+  'flex items-center justify-center gap-5 border no-underline cursor-pointer rounded-md bg-shop border-shop text-white hover:bg-notification hover:border-notification h-34 w-34 px-0 md:w-auto md:px-12'
 
 function activeLinkProps(active: boolean) {
   return active ? { 'aria-current': 'page' as const, 'aria-disabled': true, tabIndex: -1 } : {}
@@ -34,7 +30,8 @@ function Header() {
   const isActive = (to: string) => pathname === to
   const isHomeSection = pathname === '/'
   const headerRef = useRef<HTMLElement>(null)
-  const [menuOpen, setMenuOpen] = useState(false)
+  const [hidden, setHidden] = useState(false)
+  const [compact, setCompact] = useState(false)
 
   useEffect(() => {
     const header = headerRef.current
@@ -48,46 +45,60 @@ function Header() {
     return () => observer.disconnect()
   }, [])
 
+  // Scroll-driven header states, both scoped by media queries / lg-only classes
+  // so the mobile header is untouched:
+  //   - compact (lg): past 0.8 viewports the nav buttons drop to their md size.
+  //   - hidden (md/lg): pinned for the first 1.6 viewports, then hides on
+  //     scroll-down / reappears on scroll-up. The transform lives in index.css
+  //     behind a `min-width: 768px` media query.
   useEffect(() => {
-    setMenuOpen(false)
+    let lastY = window.scrollY
+    const onScroll = () => {
+      const y = window.scrollY
+      const vh = window.innerHeight
+      setCompact(y > vh * 0.8)
+      if (y <= vh * 1.6) {
+        setHidden(false)
+      } else if (y > lastY + 4) {
+        setHidden(true)
+      } else if (y < lastY - 4) {
+        setHidden(false)
+      }
+      lastY = y
+    }
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
   }, [pathname])
-
-  useEffect(() => {
-    if (!menuOpen) return
-    const previous = document.body.style.overflow
-    document.body.style.overflow = 'hidden'
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setMenuOpen(false)
-    }
-    document.addEventListener('keydown', onKeyDown)
-    return () => {
-      document.body.style.overflow = previous
-      document.removeEventListener('keydown', onKeyDown)
-    }
-  }, [menuOpen])
 
   return (
     <header
       ref={headerRef}
-      className="w-full z-40 sticky top-0 left-0 bg-menu pt-15 md:pt-13 pb-12 md:pb-24 overflow-visible md:overflow-hidden transition-all"
+      data-hidden={hidden ? 'true' : 'false'}
+      data-compact={compact ? 'true' : 'false'}
+      className="siteHeader w-full z-40 sticky top-0 left-0 bg-menu pt-13 pb-24 overflow-visible md:overflow-hidden"
     >
-      <div className="inner relative px-16 md:px-20 mx-auto w-full max-w-[5120px]">
+      <div className="inner relative px-20 mx-auto w-full max-w-[5120px]">
         <nav className="flex justify-between items-start gap-10">
           <ul
-            className={`headerNavigation flex flex-wrap md:flex-nowrap gap-5 grow ${
-              isHomeSection ? 'pb-40 lg:pb-45' : ''
+            className={`headerNavigation flex flex-nowrap gap-5 grow min-w-0 overflow-x-auto ${
+              isHomeSection ? (compact ? 'pb-40' : 'pb-40 lg:pb-45') : ''
             }`}
           >
-            <li>
-              <Link to="/" className={`${navLinkClasses} ${isActive('/') ? navLinkActiveClasses : ''}`} {...activeLinkProps(isActive('/'))}>
+            <li className="shrink-0">
+              <Link
+                to="/"
+                className={`${navLinkClasses} ${compact ? '' : navLinkLgClasses} ${isActive('/') ? navLinkActiveClasses : ''}`}
+                {...activeLinkProps(isActive('/'))}
+              >
                 Юни-С
               </Link>
             </li>
             {navItems.map((item) => (
-              <li key={item.to} className="hidden md:flex">
+              <li key={item.to} className="shrink-0">
                 <Link
                   to={item.to}
-                  className={`${navLinkClasses} ${isActive(item.to) ? navLinkActiveClasses : ''}`}
+                  className={`${navLinkClasses} ${compact ? '' : navLinkLgClasses} ${isActive(item.to) ? navLinkActiveClasses : ''}`}
                   {...activeLinkProps(isActive(item.to))}
                 >
                   {item.label}
@@ -95,29 +106,32 @@ function Header() {
               </li>
             ))}
           </ul>
-          <div className="headerToolbar flex items-center gap-8 md:gap-12 shrink-0">
-            <a
-              href="tel:+79650808808"
-              className="flex items-center gap-5 border no-underline cursor-pointer rounded-md bg-shop border-shop text-white hover:bg-notification hover:border-notification px-12 h-40 md:h-34"
-            >
-              <span className="md:hidden">Позвонить</span>
+          <div className="headerToolbar flex items-center shrink-0">
+            <a href="tel:+79650808808" aria-label="Позвонить директору" className={callButtonClasses}>
+              <svg
+                className="md:hidden"
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.75"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+              </svg>
               <span className="hidden md:inline">Позвонить директору</span>
             </a>
-            <button
-              type="button"
-              aria-label="Открыть меню"
-              aria-expanded={menuOpen}
-              onClick={() => setMenuOpen(true)}
-              className={iconButtonClasses}
-            >
-              <svg width="20" height="20" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5" fill="none" aria-hidden="true">
-                <path d="M3 6h18M3 12h18M3 18h18" />
-              </svg>
-            </button>
           </div>
         </nav>
 
-        <div className="submenus absolute left-0 top-42 lg:top-69 w-full md:w-auto hidden md:block">
+        <div
+          className={`submenus absolute left-0 top-42 ${
+            compact ? '' : 'lg:top-69'
+          } w-full md:w-auto block transition-[top] duration-300 ease-in-out`}
+        >
           <ul className={`${isHomeSection ? 'flex' : 'hidden'} ${submenuListClasses}`}>
             <li>
               <Link
@@ -143,66 +157,6 @@ function Header() {
           <ul className={`${isActive('/prices') ? 'flex' : 'hidden'} ${submenuListClasses}`} />
         </div>
       </div>
-
-      {menuOpen && (
-        <div className="md:hidden fixed inset-0 z-50 bg-menu flex flex-col overflow-y-auto">
-          <div className="flex justify-between items-center gap-10 px-16 pt-15 pb-12">
-            <Link to="/" className={`${navLinkClasses} ${isActive('/') ? navLinkActiveClasses : ''}`} {...activeLinkProps(isActive('/'))}>
-              Юни-С
-            </Link>
-            <button
-              type="button"
-              aria-label="Закрыть меню"
-              onClick={() => setMenuOpen(false)}
-              className="flex items-center justify-center h-40 w-40 shrink-0 border rounded-md transition-colors hover:bg-notification hover:border-notification hover:text-white"
-            >
-              <svg width="20" height="20" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5" fill="none" aria-hidden="true">
-                <path d="M6 6l12 12M18 6L6 18" />
-              </svg>
-            </button>
-          </div>
-
-          <nav className="flex flex-col gap-8 px-16 mt-10">
-            {navItems.map((item) => (
-              <Link
-                key={item.to}
-                to={item.to}
-                className={`${mobileNavLinkClasses} ${isActive(item.to) ? mobileNavLinkActiveClasses : ''}`}
-                {...activeLinkProps(isActive(item.to))}
-              >
-                {item.label}
-              </Link>
-            ))}
-          </nav>
-
-          <div className="flex flex-col gap-8 px-16 mt-30">
-            <span className="text-xs-wide uppercase tracking-wider text-pigeon px-16">Сервис HILTI</span>
-            <a
-              href="https://service.unis-tech.ru"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={mobileSubLinkClasses}
-            >
-              Ремонт оборудования HILTI ↗
-            </a>
-            <a
-              href="https://service.unis-tech.ru"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={mobileSubLinkClasses}
-            >
-              Поставки продукции HILTI ↗
-            </a>
-          </div>
-
-          <a
-            href="tel:+79650808808"
-            className="flex items-center justify-center gap-5 border no-underline rounded-md bg-shop border-shop text-white hover:bg-notification hover:border-notification mt-auto m-10 px-12 h-56"
-          >
-            Позвонить директору
-          </a>
-        </div>
-      )}
     </header>
   )
 }
