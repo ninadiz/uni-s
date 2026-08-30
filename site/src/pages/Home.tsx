@@ -38,7 +38,7 @@ function Home() {
     <>
       <section className="flex flex-col min-h-[calc(100vh-var(--header-height,150px))]">
         <div className="flex-1 bg-menu px-16 md:px-24 pt-20 pb-24 md:pt-0 flex flex-col justify-end md:flex-row md:items-end md:justify-between gap-20">
-          <h1 className="max-w-[900px] text-4xl md:text-5xl">
+          <h1 className="max-w-[900px] lg:max-w-[800px] text-4xl md:text-5xl">
             Алмазное сверление, резка проёмов и демонтаж сложных конструкций
             <span className="block text-black/50">в Санкт-Петербурге и ЛО</span>
           </h1>
