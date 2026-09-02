@@ -1,10 +1,19 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 
-const navItems = [
+const navLinks = [
+  { label: 'Юни-С', to: '/' },
   { label: 'Услуги', to: '/services' },
   { label: 'Объекты', to: '/objects' },
   { label: 'Цены', to: '/prices' },
+]
+
+// Home-only second row. `to` renders a router Link (and can be the active item),
+// `href` renders an external link.
+const homeSubmenu: { label: string; to?: string; href?: string }[] = [
+  { label: 'Алмазная резка', to: '/' },
+  { label: 'Ремонт оборудования HILTI ↗', href: 'https://service.unis-tech.ru' },
+  { label: 'Поставки продукции HILTI ↗', href: 'https://service.unis-tech.ru' },
 ]
 
 const navLinkClasses =
@@ -16,12 +25,11 @@ const navLinkActiveClasses = 'bg-black text-white border-black rounded-2xl point
 const submenuLinkClasses =
   'flex items-center justify-center no-underline whitespace-nowrap border rounded-md pb-1 h-34 px-12 font-light transition-all duration-300 ease-in-out hover:bg-notification hover:border-notification hover:text-white'
 const submenuLinkActiveClasses = 'bg-black text-white border-black pointer-events-none'
-const submenuListClasses = 'flex-nowrap items-center gap-5 w-full md:w-auto overflow-x-auto pl-20 pr-20'
 
 // Desktop-only: below md the call action lives in the floating FloatingCall
 // button pinned to the bottom of the screen.
 const callButtonClasses =
-  'hidden md:flex items-center justify-center gap-5 border no-underline cursor-pointer rounded-md bg-shop border-shop text-white hover:bg-notification hover:border-notification h-34 px-12'
+  'hidden md:flex shrink-0 items-center justify-center gap-5 border no-underline cursor-pointer rounded-md bg-shop border-shop text-white hover:bg-notification hover:border-notification h-34 px-12'
 
 function activeLinkProps(active: boolean) {
   return active ? { 'aria-current': 'page' as const, 'aria-disabled': true, tabIndex: -1 } : {}
@@ -73,6 +81,9 @@ function Header() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [pathname])
 
+  const navLinkClass = (to: string) =>
+    `${navLinkClasses} ${compact ? '' : navLinkLgClasses} ${isActive(to) ? navLinkActiveClasses : ''}`
+
   return (
     <header
       ref={headerRef}
@@ -82,68 +93,56 @@ function Header() {
     >
       <div className="inner relative px-0 md:px-20 mx-auto w-full max-w-[5120px]">
         <nav className="flex justify-between items-start gap-10">
+          {/* pb reserves the row the absolutely-positioned submenu sits in (home only) */}
           <ul
             className={`headerNavigation flex flex-nowrap gap-5 grow min-w-0 overflow-x-auto px-20 md:px-0 ${
               isHomeSection ? (compact ? 'pb-40' : 'pb-40 lg:pb-45') : ''
             }`}
           >
-            <li className="shrink-0">
-              <Link
-                to="/"
-                className={`${navLinkClasses} ${compact ? '' : navLinkLgClasses} ${isActive('/') ? navLinkActiveClasses : ''}`}
-                {...activeLinkProps(isActive('/'))}
-              >
-                Юни-С
-              </Link>
-            </li>
-            {navItems.map((item) => (
-              <li key={item.to} className="shrink-0">
-                <Link
-                  to={item.to}
-                  className={`${navLinkClasses} ${compact ? '' : navLinkLgClasses} ${isActive(item.to) ? navLinkActiveClasses : ''}`}
-                  {...activeLinkProps(isActive(item.to))}
-                >
-                  {item.label}
+            {navLinks.map(({ label, to }) => (
+              <li key={to} className="shrink-0">
+                <Link to={to} className={navLinkClass(to)} {...activeLinkProps(isActive(to))}>
+                  {label}
                 </Link>
               </li>
             ))}
           </ul>
-          <div className="headerToolbar hidden md:flex items-center shrink-0">
-            <a href="tel:+79650808808" aria-label="Позвонить директору" className={callButtonClasses}>
-              Позвонить директору
-            </a>
-          </div>
+
+          <a href="tel:+79650808808" aria-label="Позвонить директору" className={callButtonClasses}>
+            Позвонить директору
+          </a>
         </nav>
 
-        <div
-          className={`submenus absolute left-0 top-42 ${
-            compact ? '' : 'lg:top-69'
-          } w-full md:w-auto block transition-[top] duration-300 ease-in-out`}
-        >
-          <ul className={`${isHomeSection ? 'flex' : 'hidden'} ${submenuListClasses}`}>
-            <li>
-              <Link
-                to="/"
-                className={`${submenuLinkClasses} ${isActive('/') ? submenuLinkActiveClasses : ''}`}
-                {...activeLinkProps(isActive('/'))}
-              >
-                Алмазная резка
-              </Link>
-            </li>
-            <li>
-              <a href="https://service.unis-tech.ru" target="_blank" rel="noopener noreferrer" className={submenuLinkClasses}>
-                Ремонт оборудования HILTI ↗
-              </a>
-            </li>
-            <li>
-              <a href="https://service.unis-tech.ru" target="_blank" rel="noopener noreferrer" className={submenuLinkClasses}>
-                Поставки продукции HILTI ↗
-              </a>
-            </li>
+        {isHomeSection && (
+          <ul
+            className={`submenus absolute left-0 flex flex-nowrap items-center gap-5 w-full md:w-auto overflow-x-auto pl-20 pr-20 transition-[top] duration-300 ease-in-out ${
+              compact ? 'top-42' : 'top-42 lg:top-69'
+            }`}
+          >
+            {homeSubmenu.map((item) => (
+              <li key={item.label}>
+                {item.to ? (
+                  <Link
+                    to={item.to}
+                    className={`${submenuLinkClasses} ${isActive(item.to) ? submenuLinkActiveClasses : ''}`}
+                    {...activeLinkProps(isActive(item.to))}
+                  >
+                    {item.label}
+                  </Link>
+                ) : (
+                  <a
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={submenuLinkClasses}
+                  >
+                    {item.label}
+                  </a>
+                )}
+              </li>
+            ))}
           </ul>
-          <ul className={`${isActive('/objects') ? 'flex' : 'hidden'} ${submenuListClasses}`} />
-          <ul className={`${isActive('/prices') ? 'flex' : 'hidden'} ${submenuListClasses}`} />
-        </div>
+        )}
       </div>
     </header>
   )
