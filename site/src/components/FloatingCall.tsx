@@ -1,31 +1,16 @@
-import { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom'
-
 /**
  * Mobile-only floating "call the director" button, pinned to the bottom of the
- * screen (the header no longer carries the call action below md). Hides itself
- * while the footer is in view so it never covers the footer — which has its own
- * call button — and respects the iPhone safe area. Positioning, the slide/fade
- * transition and reduced-motion live in index.css under `.floatingCall`.
+ * screen (below md the header no longer carries the call action). The footer
+ * gets matching bottom padding on mobile (`pb-[…] md:pb-0` in Footer.tsx) so the
+ * button always floats over empty space and never covers footer content — which
+ * includes the policy links and the footer's own call button. Positioning and
+ * the iPhone safe-area offset live in index.css under `.floatingCall`.
  */
 function FloatingCall() {
-  const { pathname } = useLocation()
-  const [footerVisible, setFooterVisible] = useState(false)
-
-  useEffect(() => {
-    if (typeof window === 'undefined' || !('IntersectionObserver' in window)) return
-    const footer = document.querySelector('footer')
-    if (!footer) return
-    const observer = new IntersectionObserver(([entry]) => setFooterVisible(entry.isIntersecting))
-    observer.observe(footer)
-    return () => observer.disconnect()
-  }, [pathname])
-
   return (
     <a
       href="tel:+79650808808"
       aria-label="Позвонить директору"
-      data-hidden={footerVisible ? 'true' : 'false'}
       className="floatingCall md:hidden fixed left-0 right-0 mx-auto z-40 flex w-max items-center gap-8 rounded-2xl bg-shop px-20 py-12 text-base-wide text-white no-underline shadow-lg hover:bg-notification"
     >
       <svg
