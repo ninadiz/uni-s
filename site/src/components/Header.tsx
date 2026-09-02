@@ -78,12 +78,12 @@ function Header() {
       ref={headerRef}
       data-hidden={hidden ? 'true' : 'false'}
       data-compact={compact ? 'true' : 'false'}
-      className="siteHeader w-full z-40 sticky top-0 left-0 bg-menu pt-13 pb-24 overflow-visible md:overflow-hidden"
+      className="siteHeader w-full z-40 sticky top-0 left-0 bg-menu pt-13 pb-10 md:pb-24 overflow-visible md:overflow-hidden"
     >
-      <div className="inner relative px-20 mx-auto w-full max-w-[5120px]">
+      <div className="inner relative px-0 md:px-20 mx-auto w-full max-w-[5120px]">
         <nav className="flex justify-between items-start gap-10">
           <ul
-            className={`headerNavigation flex flex-nowrap gap-5 grow min-w-0 overflow-x-auto ${
+            className={`headerNavigation flex flex-nowrap gap-5 grow min-w-0 overflow-x-auto px-20 md:px-0 ${
               isHomeSection ? (compact ? 'pb-40' : 'pb-40 lg:pb-45') : ''
             }`}
           >
@@ -108,7 +108,7 @@ function Header() {
               </li>
             ))}
           </ul>
-          <div className="headerToolbar flex items-center shrink-0">
+          <div className="headerToolbar hidden md:flex items-center shrink-0">
             <a href="tel:+79650808808" aria-label="Позвонить директору" className={callButtonClasses}>
               Позвонить директору
             </a>
