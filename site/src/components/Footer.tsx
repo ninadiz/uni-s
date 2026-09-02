@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom'
 
+import { FOUNDING_YEAR } from '../config'
+
 const siteLinks = [
   { label: 'Услуги', to: '/services' },
   { label: 'Объекты', to: '/objects' },
@@ -7,6 +9,10 @@ const siteLinks = [
 ]
 
 function Footer() {
+  const currentYear = new Date().getFullYear()
+  const copyrightYears =
+    currentYear > FOUNDING_YEAR ? `${FOUNDING_YEAR}-${currentYear}` : `${FOUNDING_YEAR}`
+
   return (
     <footer className="bg-submenu px-16 md:px-20 pt-20 mt-60 md:mt-100 text-black">
       <div className="flex flex-row items-center justify-between gap-10 pb-20">
@@ -63,7 +69,7 @@ function Footer() {
 
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-10 py-20 text-xs-wide text-pigeon">
         <p>
-          © 2014-2026 Uni-S. Все права защищены,{' '}
+          © {copyrightYears} Uni-S. Все права защищены,{' '}
           <Link to="/privacy" className="underline hover:text-black">
             Политика конфиденциальности
           </Link>
