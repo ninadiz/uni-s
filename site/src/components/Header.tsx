@@ -31,7 +31,7 @@ const submenuLinkActiveClasses = 'bg-black text-white border-black pointer-event
 // Desktop-only: below md the call action lives in the floating FloatingCall
 // button pinned to the bottom of the screen.
 const callButtonClasses =
-  'hidden md:flex shrink-0 items-center justify-center gap-5 border no-underline cursor-pointer rounded-md bg-shop border-shop text-white hover:bg-notification hover:border-notification h-34 px-12'
+  'hidden md:flex shrink-0 items-center justify-center gap-5 border no-underline cursor-pointer rounded-2xl bg-shop border-shop text-white hover:bg-notification hover:border-notification h-34 px-12'
 
 function activeLinkProps(active: boolean) {
   return active ? { 'aria-current': 'page' as const, 'aria-disabled': true, tabIndex: -1 } : {}
