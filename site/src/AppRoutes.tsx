@@ -5,6 +5,8 @@ import Services from './pages/Services'
 import Objects from './pages/Objects'
 import ObjectDetail from './pages/ObjectDetail'
 import Prices from './pages/Prices'
+import Privacy from './pages/Privacy'
+import Consent from './pages/Consent'
 import UiKit from './pages/UiKit'
 import NotFound from './pages/NotFound'
 
@@ -17,6 +19,8 @@ function AppRoutes() {
         <Route path="objects" element={<Objects />} />
         <Route path="objects/:slug" element={<ObjectDetail />} />
         <Route path="prices" element={<Prices />} />
+        <Route path="privacy" element={<Privacy />} />
+        <Route path="consent" element={<Consent />} />
         <Route path="ui-kit" element={<UiKit />} />
         <Route path="*" element={<NotFound />} />
       </Route>

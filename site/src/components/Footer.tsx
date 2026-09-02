@@ -64,13 +64,13 @@ function Footer() {
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-10 py-20 text-xs-wide text-pigeon">
         <p>
           © 2014-2026 Uni-S. Все права защищены,{' '}
-          <a href="#" className="underline hover:text-black">
+          <Link to="/privacy" className="underline hover:text-black">
             Политика конфиденциальности
-          </a>
+          </Link>
           ,{' '}
-          <a href="#" className="underline hover:text-black">
+          <Link to="/consent" className="underline hover:text-black">
             Согласие на обработку персональных данных
-          </a>
+          </Link>
         </p>
       </div>
     </footer>
