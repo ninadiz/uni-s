@@ -118,6 +118,18 @@
   bottom: calc(32px + env(safe-area-inset-bottom, 0px));
 }
 
+/* iOS-style continuous ("squircle") corners on every rounded control site-wide
+   — pills (nav buttons on hover / when current, the call buttons) and the
+   rounded-md / rounded-base buttons alike. Set once per element; it shapes
+   whatever border-radius is active. Progressive enhancement: without
+   corner-shape support the corners are the normal circular radius. Excludes
+   rounded-full (circles) and rounded-none (deliberate squares). */
+@supports (corner-shape: superellipse(4)) {
+  [class*="rounded-"]:not([class*="rounded-full"]):not([class*="rounded-none"]) {
+    corner-shape: superellipse(4);
+  }
+}
+
 html {
   font-size: 16px;
 }
