@@ -118,21 +118,6 @@
   bottom: calc(32px + env(safe-area-inset-bottom, 0px));
 }
 
-/* iOS-style continuous ("squircle") corners — only on the pill-shaped controls,
-   where the radius is large enough for it to read as a smooth capsule rather
-   than a boxy corner: the floating call button and the header call button
-   (always pills), and the nav links while hovered / when current. Their normal
-   10px `rounded-md` state stays a plain circular corner. Progressive
-   enhancement: no corner-shape support ⇒ the normal circular pill. */
-@supports (corner-shape: superellipse(4)) {
-  .floatingCall,
-  .siteHeader nav a[href^="tel:"],
-  .headerNavigation a:hover,
-  .headerNavigation a[aria-current="page"] {
-    corner-shape: superellipse(4);
-  }
-}
-
 html {
   font-size: 16px;
 }
