@@ -57,7 +57,8 @@ function Header() {
 
   // Scroll-driven header states, both scoped by media queries / lg-only classes
   // so the mobile header is untouched:
-  //   - compact (lg): past 0.8 viewports the nav buttons drop to their md size.
+  //   - compact (lg): past 0.8 viewports the nav buttons drop to their md size;
+  //     the submenu row below follows for free (normal flow + gap on .inner).
   //   - hidden (md/lg): pinned for the first 1.6 viewports, then hides on
   //     scroll-down / reappears on scroll-up. The transform lives in index.css
   //     behind a `min-width: 768px` media query.
@@ -91,14 +92,10 @@ function Header() {
       data-compact={compact ? 'true' : 'false'}
       className="siteHeader w-full z-40 sticky top-0 left-0 bg-menu pt-13 pb-10 md:pb-24 overflow-visible md:overflow-hidden"
     >
-      <div className="inner relative px-0 md:px-20 mx-auto w-full max-w-[5120px]">
+      {/* nav row + (home only) submenu row, stacked in normal flow */}
+      <div className="inner flex flex-col gap-8 lg:gap-10 px-0 md:px-20 mx-auto w-full max-w-[5120px]">
         <nav className="flex justify-between items-start gap-10">
-          {/* pb reserves the row the absolutely-positioned submenu sits in (home only) */}
-          <ul
-            className={`headerNavigation flex flex-nowrap gap-5 grow min-w-0 overflow-x-auto px-20 md:px-0 ${
-              isHomeSection ? (compact ? 'pb-40' : 'pb-40 lg:pb-45') : ''
-            }`}
-          >
+          <ul className="headerNavigation flex flex-nowrap gap-5 grow min-w-0 overflow-x-auto px-20 md:px-0">
             {navLinks.map(({ label, to }) => (
               <li key={to} className="shrink-0">
                 <Link to={to} className={navLinkClass(to)} {...activeLinkProps(isActive(to))}>
@@ -114,11 +111,8 @@ function Header() {
         </nav>
 
         {isHomeSection && (
-          <ul
-            className={`submenus absolute left-0 flex flex-nowrap items-center gap-5 w-full md:w-auto overflow-x-auto pl-20 pr-20 transition-[top] duration-300 ease-in-out ${
-              compact ? 'top-42' : 'top-42 lg:top-69'
-            }`}
-          >
+          // -mx-20 at md+ cancels .inner's px so the strip stays edge-to-edge
+          <ul className="submenus flex flex-nowrap items-center gap-5 w-full md:w-auto overflow-x-auto pl-20 pr-20 md:-mx-20">
             {homeSubmenu.map((item) => (
               <li key={item.label}>
                 {item.to ? (
