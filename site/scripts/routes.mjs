@@ -6,5 +6,7 @@ export const routes = [
   { path: '/services' },
   { path: '/objects' },
   { path: '/prices' },
+  { path: '/privacy' },
+  { path: '/consent' },
   { path: '/ui-kit', noindex: true },
 ]
