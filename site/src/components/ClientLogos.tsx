@@ -85,7 +85,7 @@ type ClientLogosProps = {
 function ClientLogos({ className = '' }: ClientLogosProps) {
   return (
     <div
-      className={`logo-marquee relative h-120 overflow-hidden ${className}`}
+      className={`logo-marquee relative h-120 md:h-160 overflow-hidden ${className}`}
       style={{ '--logo-marquee-repeat': REPEAT } as CSSProperties}
     >
       <div className="logo-marquee__viewport h-full overflow-hidden">
