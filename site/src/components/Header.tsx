@@ -17,10 +17,12 @@ const homeSubmenu: { label: string; to?: string; href?: string }[] = [
 ]
 
 const navLinkClasses =
-  'flex items-center justify-center no-underline whitespace-nowrap border rounded-md pb-1 h-34 px-12 text-base-wide font-light transition-all duration-300 ease-in-out hover:bg-notification hover:border-notification hover:text-white hover:rounded-2xl'
+  'flex items-center justify-center no-underline whitespace-nowrap border rounded-md pb-1 h-34 px-12 text-base-wide font-light transition-all duration-300 ease-in-out hover:bg-notification hover:border-notification hover:text-white hover:rounded-2xl aria-[current=page]:rounded-2xl'
 // lg blows the nav buttons up to full size; dropped once the header goes compact.
 const navLinkLgClasses = 'lg:h-59 lg:px-20 lg:text-3xl'
-const navLinkActiveClasses = 'bg-black text-white border-black rounded-2xl pointer-events-none'
+// rounded-2xl comes from the aria-[current=page] variant above (it outweighs the
+// base rounded-md, which a plain rounded-2xl here would not).
+const navLinkActiveClasses = 'bg-black text-white border-black pointer-events-none'
 
 const submenuLinkClasses =
   'flex items-center justify-center no-underline whitespace-nowrap border rounded-md pb-1 h-34 px-12 font-light transition-all duration-300 ease-in-out hover:bg-notification hover:border-notification hover:text-white'
