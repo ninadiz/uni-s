@@ -111,6 +111,26 @@
   }
 }
 
+/* Mobile floating call button (FloatingCall.tsx). Sits above the fold at the
+   bottom of the screen, clear of the iPhone home indicator, and slides out of
+   the way while the footer is on screen. */
+.floatingCall {
+  bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.floatingCall[data-hidden="true"] {
+  opacity: 0;
+  transform: translateY(calc(100% + 16px + env(safe-area-inset-bottom, 0px)));
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .floatingCall {
+    transition: none;
+  }
+}
+
 html {
   font-size: 16px;
 }

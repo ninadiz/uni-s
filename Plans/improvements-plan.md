@@ -23,19 +23,17 @@
 
 ---
 
-### 2. 🟡 Мобильная версия: убрать кнопку звонка из шапки, сделать плавающей внизу
+### 2. ✅ 🟡 Мобильная версия: убрать кнопку звонка из шапки, сделать плавающей внизу
 
-- **Где:** [`src/components/Header.tsx`](../site/src/components/Header.tsx) — блок `.headerToolbar` с `<a href="tel:+79650808808">` (`callButtonClasses`).
-- **Что:**
-  1. На мобильной ширине (`< md`) скрыть кнопку «Позвонить директору» в шапке (`hidden md:flex` на тулбаре или на самой ссылке).
-  2. Добавить фиксированную плавающую кнопку внизу экрана — новый компонент `src/components/FloatingCall.tsx`, рендерится в `Layout.tsx`, виден только `md:hidden`.
-     - `position: fixed`, `bottom`, центр или правый нижний угол, `z-index` выше контента, ниже модалок.
-     - Учесть `env(safe-area-inset-bottom)` для iPhone.
-     - Не перекрывать футер: либо добавить нижний `padding` странице на мобилке, либо прятать кнопку при попадании футера во вьюпорт (IntersectionObserver).
-     - Иконка телефона + текст, тот же `tel:` и `aria-label`.
-  3. Проверить submenu на главной (`.submenus`, `top-42`) — раскладка не должна поехать без кнопки в тулбаре.
-- **Десктоп не трогаем** — там кнопка остаётся в шапке.
-- **Проверить:** прокрутка, `--header-height` (ResizeObserver в Header), отсутствие горизонтального скролла.
+- **Статус:** сделано (ветка `feat/mobile-floating-call`).
+- **Где:** [`src/components/Header.tsx`](../site/src/components/Header.tsx), новый [`src/components/FloatingCall.tsx`](../site/src/components/FloatingCall.tsx), [`src/components/Layout.tsx`](../site/src/components/Layout.tsx), [`src/index.css`](../site/src/index.css).
+- **Что сделано:**
+  1. Кнопка «Позвонить директору» в шапке получила `hidden md:flex` — на `< md` не рендерится (заодно убрана мобильная svg-only версия, на десктопе всегда текст).
+  2. Новый компонент `FloatingCall.tsx` — `md:hidden`, `position: fixed`, по центру внизу, `z-40` (над контентом, у сайта модалок нет). `bottom: calc(16px + env(safe-area-inset-bottom))` для iPhone. Иконка телефона + текст, тот же `tel:+79650808808` и `aria-label`. Рендерится в `Layout.tsx` после футера.
+  3. Прячется, когда футер во вьюпорте (`IntersectionObserver` по `<footer>`, как в `ScrollReveal`) — слайд вниз + fade; `prefers-reduced-motion` убирает переход. Футер со своей кнопкой звонка не перекрывается.
+  4. Submenu (`.submenus`, `top-42`) не поехало — тулбар остаётся в разметке, просто пустой на мобилке.
+- **Десктоп не тронут** — кнопка в шапке, плавающей нет (проверено на 1280px).
+- **Проверено:** `npm run build` + пререндер, `npm run lint`; на 375px нет горизонтального скролла, кнопка по центру в 16px от низа; переключение `< md` / `>= md` корректно.
 
 ---
 
