@@ -44,7 +44,9 @@ function Home() {
           </h1>
         </div>
 
-        <div className="my-20">
+        {/* Extra bottom room on mobile so the floating call button (FloatingCall)
+            doesn't cover the logo strip parked at the bottom of the first screen. */}
+        <div className="mb-80 md:my-20">
           <ClientLogos />
         </div>
       </section>

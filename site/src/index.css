@@ -111,6 +111,13 @@
   }
 }
 
+/* Mobile floating call button (FloatingCall.tsx). Pinned just above the iPhone
+   home indicator; the footer carries matching bottom padding on mobile so the
+   button never overlaps footer content. */
+.floatingCall {
+  bottom: calc(32px + env(safe-area-inset-bottom, 0px));
+}
+
 html {
   font-size: 16px;
 }

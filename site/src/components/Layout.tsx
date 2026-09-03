@@ -1,5 +1,6 @@
 import { Outlet } from 'react-router-dom'
 import Cursor from './Cursor'
+import FloatingCall from './FloatingCall'
 import Footer from './Footer'
 import Header from './Header'
 import PageMeta from './PageMeta'
@@ -18,6 +19,7 @@ function Layout() {
         <Outlet />
       </main>
       <Footer />
+      <FloatingCall />
     </>
   )
 }

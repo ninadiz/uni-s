@@ -1,25 +1,37 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 
-const navItems = [
+const navLinks = [
+  { label: 'Юни-С', to: '/' },
   { label: 'Услуги', to: '/services' },
   { label: 'Объекты', to: '/objects' },
   { label: 'Цены', to: '/prices' },
 ]
 
+// Home-only second row. `to` renders a router Link (and can be the active item),
+// `href` renders an external link.
+const homeSubmenu: { label: string; to?: string; href?: string }[] = [
+  { label: 'Алмазная резка', to: '/' },
+  { label: 'Ремонт оборудования HILTI ↗', href: 'https://service.unis-tech.ru' },
+  { label: 'Поставки продукции HILTI ↗', href: 'https://service.unis-tech.ru' },
+]
+
 const navLinkClasses =
-  'flex items-center justify-center no-underline whitespace-nowrap border rounded-md pb-1 h-34 px-12 text-base-wide font-light transition-all duration-300 ease-in-out hover:bg-notification hover:border-notification hover:text-white hover:rounded-2xl'
+  'flex items-center justify-center no-underline whitespace-nowrap border rounded-md pb-1 h-34 px-12 text-base-wide font-light transition-all duration-300 ease-in-out hover:bg-notification hover:border-notification hover:text-white hover:rounded-2xl aria-[current=page]:rounded-2xl'
 // lg blows the nav buttons up to full size; dropped once the header goes compact.
 const navLinkLgClasses = 'lg:h-59 lg:px-20 lg:text-3xl'
-const navLinkActiveClasses = 'bg-black text-white border-black rounded-2xl pointer-events-none'
+// rounded-2xl comes from the aria-[current=page] variant above (it outweighs the
+// base rounded-md, which a plain rounded-2xl here would not).
+const navLinkActiveClasses = 'bg-black text-white border-black pointer-events-none'
 
 const submenuLinkClasses =
   'flex items-center justify-center no-underline whitespace-nowrap border rounded-md pb-1 h-34 px-12 font-light transition-all duration-300 ease-in-out hover:bg-notification hover:border-notification hover:text-white'
 const submenuLinkActiveClasses = 'bg-black text-white border-black pointer-events-none'
-const submenuListClasses = 'flex-nowrap items-center gap-5 w-full md:w-auto overflow-x-auto pl-20 pr-20'
 
+// Desktop-only: below md the call action lives in the floating FloatingCall
+// button pinned to the bottom of the screen.
 const callButtonClasses =
-  'flex items-center justify-center gap-5 border no-underline cursor-pointer rounded-md bg-shop border-shop text-white hover:bg-notification hover:border-notification h-34 w-34 px-0 md:w-auto md:px-12'
+  'hidden md:flex shrink-0 items-center justify-center gap-5 border no-underline cursor-pointer rounded-2xl bg-shop border-shop text-white hover:bg-notification hover:border-notification h-34 px-12'
 
 function activeLinkProps(active: boolean) {
   return active ? { 'aria-current': 'page' as const, 'aria-disabled': true, tabIndex: -1 } : {}
@@ -47,7 +59,8 @@ function Header() {
 
   // Scroll-driven header states, both scoped by media queries / lg-only classes
   // so the mobile header is untouched:
-  //   - compact (lg): past 0.8 viewports the nav buttons drop to their md size.
+  //   - compact (lg): past 0.8 viewports the nav buttons drop to their md size;
+  //     the submenu row below follows for free (normal flow + gap on .inner).
   //   - hidden (md/lg): pinned for the first 1.6 viewports, then hides on
   //     scroll-down / reappears on scroll-up. The transform lives in index.css
   //     behind a `min-width: 768px` media query.
@@ -71,91 +84,61 @@ function Header() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [pathname])
 
+  const navLinkClass = (to: string) =>
+    `${navLinkClasses} ${compact ? '' : navLinkLgClasses} ${isActive(to) ? navLinkActiveClasses : ''}`
+
   return (
     <header
       ref={headerRef}
       data-hidden={hidden ? 'true' : 'false'}
       data-compact={compact ? 'true' : 'false'}
-      className="siteHeader w-full z-40 sticky top-0 left-0 bg-menu pt-13 pb-24 overflow-visible md:overflow-hidden"
+      className="siteHeader w-full z-40 sticky top-0 left-0 bg-menu pt-13 pb-10 md:pb-24 overflow-visible md:overflow-hidden"
     >
-      <div className="inner relative px-20 mx-auto w-full max-w-[5120px]">
+      {/* nav row + (home only) submenu row, stacked in normal flow */}
+      <div className="inner flex flex-col gap-8 lg:gap-10 px-0 md:px-20 mx-auto w-full max-w-[5120px]">
         <nav className="flex justify-between items-start gap-10">
-          <ul
-            className={`headerNavigation flex flex-nowrap gap-5 grow min-w-0 overflow-x-auto ${
-              isHomeSection ? (compact ? 'pb-40' : 'pb-40 lg:pb-45') : ''
-            }`}
-          >
-            <li className="shrink-0">
-              <Link
-                to="/"
-                className={`${navLinkClasses} ${compact ? '' : navLinkLgClasses} ${isActive('/') ? navLinkActiveClasses : ''}`}
-                {...activeLinkProps(isActive('/'))}
-              >
-                Юни-С
-              </Link>
-            </li>
-            {navItems.map((item) => (
-              <li key={item.to} className="shrink-0">
-                <Link
-                  to={item.to}
-                  className={`${navLinkClasses} ${compact ? '' : navLinkLgClasses} ${isActive(item.to) ? navLinkActiveClasses : ''}`}
-                  {...activeLinkProps(isActive(item.to))}
-                >
-                  {item.label}
+          <ul className="headerNavigation flex flex-nowrap gap-5 grow min-w-0 overflow-x-auto px-20 md:px-0">
+            {navLinks.map(({ label, to }) => (
+              <li key={to} className="shrink-0">
+                <Link to={to} className={navLinkClass(to)} {...activeLinkProps(isActive(to))}>
+                  {label}
                 </Link>
               </li>
             ))}
           </ul>
-          <div className="headerToolbar flex items-center shrink-0">
-            <a href="tel:+79650808808" aria-label="Позвонить директору" className={callButtonClasses}>
-              <svg
-                className="md:hidden"
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.75"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-              >
-                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
-              </svg>
-              <span className="hidden md:inline">Позвонить директору</span>
-            </a>
-          </div>
+
+          <a href="tel:+79650808808" aria-label="Позвонить директору" className={callButtonClasses}>
+            Позвонить директору
+          </a>
         </nav>
 
-        <div
-          className={`submenus absolute left-0 top-42 ${
-            compact ? '' : 'lg:top-69'
-          } w-full md:w-auto block transition-[top] duration-300 ease-in-out`}
-        >
-          <ul className={`${isHomeSection ? 'flex' : 'hidden'} ${submenuListClasses}`}>
-            <li>
-              <Link
-                to="/"
-                className={`${submenuLinkClasses} ${isActive('/') ? submenuLinkActiveClasses : ''}`}
-                {...activeLinkProps(isActive('/'))}
-              >
-                Алмазная резка
-              </Link>
-            </li>
-            <li>
-              <a href="https://service.unis-tech.ru" target="_blank" rel="noopener noreferrer" className={submenuLinkClasses}>
-                Ремонт оборудования HILTI ↗
-              </a>
-            </li>
-            <li>
-              <a href="https://service.unis-tech.ru" target="_blank" rel="noopener noreferrer" className={submenuLinkClasses}>
-                Поставки продукции HILTI ↗
-              </a>
-            </li>
+        {isHomeSection && (
+          // -mx-20 at md+ cancels .inner's px so the strip stays edge-to-edge
+          <ul className="submenus flex flex-nowrap items-center gap-5 w-full md:w-auto overflow-x-auto pl-20 pr-20 md:-mx-20">
+            {homeSubmenu.map((item) => (
+              <li key={item.label}>
+                {item.to ? (
+                  <Link
+                    to={item.to}
+                    className={`${submenuLinkClasses} ${isActive(item.to) ? submenuLinkActiveClasses : ''}`}
+                    {...activeLinkProps(isActive(item.to))}
+                  >
+                    {item.label}
+                  </Link>
+                ) : (
+                  <a
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={submenuLinkClasses}
+                  >
+                    {item.label}
+                  </a>
+                )}
+              </li>
+            ))}
           </ul>
-          <ul className={`${isActive('/objects') ? 'flex' : 'hidden'} ${submenuListClasses}`} />
-          <ul className={`${isActive('/prices') ? 'flex' : 'hidden'} ${submenuListClasses}`} />
-        </div>
+        )}
       </div>
     </header>
   )

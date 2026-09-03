@@ -14,7 +14,7 @@ function Footer() {
     currentYear > FOUNDING_YEAR ? `${FOUNDING_YEAR}-${currentYear}` : `${FOUNDING_YEAR}`
 
   return (
-    <footer className="bg-submenu px-16 md:px-20 pt-20 mt-60 md:mt-100 text-black">
+    <footer className="bg-submenu px-16 md:px-20 pt-20 pb-[calc(108px+env(safe-area-inset-bottom))] md:pb-0 mt-60 md:mt-100 text-black">
       <div className="flex flex-row items-center justify-between gap-10 pb-20">
         <span className="text-3xl">Юни-С</span>
         <a
