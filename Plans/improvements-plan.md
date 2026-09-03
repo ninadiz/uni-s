@@ -25,7 +25,7 @@
 
 ### 2. ✅ 🟡 Мобильная версия: убрать кнопку звонка из шапки, сделать плавающей внизу
 
-- **Статус:** сделано (ветка `feat/mobile-floating-call`).
+- **Статус:** сделано, влито в `main` (PR #20, ветка `feat/mobile-floating-call`). Открытый хвост: глазами проверить сжатие шапки (`compact`) при скролле на десктопе >1024px — в headless-preview не видно.
 - **Где:** [`src/components/Header.tsx`](../site/src/components/Header.tsx), новый [`src/components/FloatingCall.tsx`](../site/src/components/FloatingCall.tsx), [`src/components/Layout.tsx`](../site/src/components/Layout.tsx), [`src/index.css`](../site/src/index.css).
 - **Что сделано:**
   1. Кнопка «Позвонить директору» в шапке получила `hidden md:flex` — на `< md` не рендерится (заодно убрана мобильная svg-only версия, на десктопе всегда текст).
