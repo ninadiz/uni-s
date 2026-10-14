@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 import { SITE_URL } from '../config'
 import { getPageMeta } from '../pageMeta'
+import { serializeStructuredData } from '../structuredData'
 
 function setMetaByName(name: string, content: string) {
   let tag = document.querySelector(`meta[name="${name}"]`)
@@ -33,6 +34,17 @@ function setCanonical(href: string) {
   tag.setAttribute('href', href)
 }
 
+function setStructuredData(json: string) {
+  let tag = document.getElementById('structured-data')
+  if (!tag) {
+    tag = document.createElement('script')
+    tag.setAttribute('type', 'application/ld+json')
+    tag.id = 'structured-data'
+    document.head.appendChild(tag)
+  }
+  tag.textContent = json
+}
+
 function PageMeta() {
   const { pathname } = useLocation()
 
@@ -50,6 +62,7 @@ function PageMeta() {
     setMetaByProperty('og:description', meta.description)
     setMetaByProperty('og:url', url)
     setMetaByName('twitter:card', 'summary')
+    setStructuredData(serializeStructuredData(pathname))
   }, [pathname])
 
   return null

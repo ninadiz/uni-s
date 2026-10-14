@@ -4,6 +4,9 @@ import { StaticRouter } from 'react-router-dom'
 import AppRoutes from './AppRoutes'
 import { getPageMeta } from './pageMeta'
 import { objects } from './lib/objects'
+import { serializeStructuredData } from './structuredData'
+
+export { buildLlmsTxt } from './content/llms'
 
 // Read by scripts/prerender.mjs (plain Node, can't use import.meta.glob
 // itself) to know which /objects/:slug pages to prerender.
@@ -18,5 +21,5 @@ export function render(url: string) {
     </StrictMode>,
   )
 
-  return { appHtml, ...getPageMeta(url) }
+  return { appHtml, structuredData: serializeStructuredData(url), ...getPageMeta(url) }
 }
