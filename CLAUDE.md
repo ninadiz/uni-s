@@ -102,7 +102,7 @@ Release steps:
    rsync -rlzc --delete -e "ssh -p 8228" dist/ s277295@ruvip68.hostiman.ru:www/unis-tech.ru/
    ```
 
-5. Check https://unis-tech.ru (including on a phone) and https://unis-tech.ru/llms.txt.
+The user checks the live site after a deploy themselves; don't open or test https://unis-tech.ru.
 
 Notes:
 
