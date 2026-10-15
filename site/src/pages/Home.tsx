@@ -36,7 +36,7 @@ const featuredObjects = getFeaturedObjects()
 function Home() {
   return (
     <>
-      <section className="flex flex-col min-h-[calc(100vh-var(--header-height,150px))]">
+      <section className="flex flex-col min-h-[calc(100svh-var(--header-height,150px))]">
         <div className="flex-1 bg-menu px-16 md:px-24 pt-20 pb-24 md:pt-0 flex flex-col justify-end md:flex-row md:items-end md:justify-between gap-20">
           <h1 className="max-w-[900px] md:max-w-[800px] text-4xl md:text-5xl">
             Алмазное сверление, резка проёмов и демонтаж сложных конструкций
@@ -46,7 +46,7 @@ function Home() {
 
         {/* Extra bottom room on mobile so the floating call button (FloatingCall)
             doesn't cover the logo strip parked at the bottom of the first screen. */}
-        <div className="mb-80 md:my-20">
+        <div className="mb-[calc(88px+env(safe-area-inset-bottom))] md:my-20">
           <ClientLogos />
         </div>
       </section>
