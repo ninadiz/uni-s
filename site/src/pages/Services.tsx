@@ -1,4 +1,5 @@
 import ServiceCard from '../components/ServiceCard'
+import { services } from '../content/services'
 import {
   HiltiCuttingIllustration,
   RentalOperatorIllustration,
@@ -7,43 +8,14 @@ import {
   LensIllustration,
 } from '../components/ServiceIllustrations'
 
-const services = [
-  {
-    title: 'Алмазная резка стенорезными машинами',
-    description:
-      'Резка проёмов в стенах и перекрытиях под двери, окна, вентиляцию и технологические отверстия. Ровные края, минимум пыли и вибраций. Подходит для несущих конструкций и работы рядом с эксплуатируемыми помещениями.',
-    illustration: <HiltiCuttingIllustration />,
-  },
-  {
-    title: 'Алмазное бурение отверстий',
-    description:
-      'Сквозные и глухие отверстия любого диаметра под инженерные коммуникации, вентиляцию и крепёж. Мокрое и сухое бурение; чистое сухое бурение на этапе финишной отделки, без грязи и воды.',
-    illustration: <CoreDrillingIllustration />,
-  },
-  {
-    title: 'Демонтаж бетонных и железобетонных конструкций',
-    description:
-      'Безударный демонтаж стенорезными машинами, без ударных нагрузок на здание. Безопасно рядом с жилыми и эксплуатируемыми помещениями, минимум шума и пыли по сравнению с отбойным методом.',
-    illustration: <LensIllustration />,
-  },
-  {
-    title: 'Алмазная резка канатом',
-    description:
-      'Тросовая резка для демонтажа конструкций сложной формы, большой толщины или крупногабаритных элементов. Применяется там, где стенорезная машина не подходит по габаритам или геометрии.',
-    illustration: <WireSawIllustration />,
-  },
-  {
-    title: 'Штробление и резка швонарезчиком',
-    description:
-      'Прокладка штроб под электрику и инженерные сети, резка деформационных швов и дорожных покрытий швонарезчиком.',
-    illustration: <LensIllustration />,
-  },
-  {
-    title: 'Аренда стенорезного оборудования с оператором',
-    description:
-      'Гибкое решение, когда нужен контроль над процессом на своей площадке. Оператор быстро настраивает оборудование и выполняет задачи на вашем объекте.',
-    illustration: <RentalOperatorIllustration />,
-  },
+// Иллюстрации по порядку услуг в src/content/services.ts.
+const illustrations = [
+  HiltiCuttingIllustration,
+  CoreDrillingIllustration,
+  LensIllustration,
+  WireSawIllustration,
+  LensIllustration,
+  RentalOperatorIllustration,
 ]
 
 function Services() {
@@ -59,15 +31,18 @@ function Services() {
 
       <section className="mt-60 md:mt-100 mb-100 px-16 md:px-20 lg:px-40">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-15 md:gap-20">
-          {services.map((service) => (
-            <ServiceCard
-              key={service.title}
-              title={service.title}
-              description={service.description}
-              illustration={service.illustration}
-              className="reveal"
-            />
-          ))}
+          {services.map((service, i) => {
+            const Illustration = illustrations[i]
+            return (
+              <ServiceCard
+                key={service.title}
+                title={service.title}
+                description={service.description}
+                illustration={<Illustration />}
+                className="reveal"
+              />
+            )
+          })}
         </div>
       </section>
     </>
