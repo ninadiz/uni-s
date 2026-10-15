@@ -36,7 +36,10 @@ const featuredObjects = getFeaturedObjects()
 function Home() {
   return (
     <>
-      <section className="flex flex-col min-h-[calc(100svh-var(--header-height,150px))]">
+      {/* On mobile the first screen stops short of the floating call button
+          (FloatingCall: 24px + 48px tall, above the iPhone safe area), so the logo
+          strip ends at the button's top edge with no extra space in the flow. */}
+      <section className="flex flex-col min-h-[calc(100svh-var(--header-height,150px)-72px-env(safe-area-inset-bottom))] md:min-h-[calc(100svh-var(--header-height,150px))]">
         <div className="flex-1 bg-menu px-16 md:px-24 pt-20 pb-24 md:pt-0 flex flex-col justify-end md:flex-row md:items-end md:justify-between gap-20">
           <h1 className="max-w-[900px] md:max-w-[800px] text-4xl md:text-5xl">
             Алмазное сверление, резка проёмов и демонтаж сложных конструкций
@@ -44,9 +47,7 @@ function Home() {
           </h1>
         </div>
 
-        {/* Extra bottom room on mobile so the floating call button (FloatingCall)
-            doesn't cover the logo strip parked at the bottom of the first screen. */}
-        <div className="mb-[calc(88px+env(safe-area-inset-bottom))] md:my-20">
+        <div className="md:my-20">
           <ClientLogos />
         </div>
       </section>
