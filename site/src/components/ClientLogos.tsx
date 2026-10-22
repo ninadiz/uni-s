@@ -49,7 +49,7 @@ const logos: LogoEntry[] = Object.entries(logoModules)
 
 function LogoSlot({ logo }: { logo: LogoEntry }) {
   return (
-    <div className="logo-marquee__slot flex items-center justify-center h-full px-40">
+    <div className="logo-marquee__slot flex items-center justify-center h-full px-20 md:px-40">
       <img
         src={logo.src}
         alt={logo.alt}
