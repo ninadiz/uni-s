@@ -194,9 +194,14 @@ body {
   animation: logo-marquee calc(45s * var(--logo-marquee-repeat, 3)) linear infinite;
 }
 
-.logo-marquee:hover .logo-marquee__track,
-.logo-marquee:focus-within .logo-marquee__track {
-  animation-play-state: paused;
+/* Pause on hover only where hover is real. On touch screens a tap leaves
+   :hover stuck on the element, so the strip would stay paused until the
+   page is reloaded. */
+@media (hover: hover) and (pointer: fine) {
+  .logo-marquee:hover .logo-marquee__track,
+  .logo-marquee:focus-within .logo-marquee__track {
+    animation-play-state: paused;
+  }
 }
 
 .logo-marquee__slot {
